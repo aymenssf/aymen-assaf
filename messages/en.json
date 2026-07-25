@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "index": "Index",
+    "profile": "Profile",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact",
+    "ariaMain": "Section navigation",
+    "ariaLocale": "Switch language",
+    "skip": "Skip to content",
+    "top": "Back to top"
+  },
+  "meta": {
+    "title": "Aymen Assaf — Search Machine Learning Engineer",
+    "description": "Portfolio of Aymen Assaf, Search Machine Learning Engineer & Software Engineer. Search engines, recommender systems, NLP/LLM and distributed architectures. Available for an internship from January 2027 — Calais, France."
+  }
+}

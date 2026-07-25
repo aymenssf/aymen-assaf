@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "index": "Index",
+    "profile": "Profil",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "contact": "Contact",
+    "ariaMain": "Navigation des sections",
+    "ariaLocale": "Changer de langue",
+    "skip": "Aller au contenu",
+    "top": "Revenir en haut"
+  },
+  "meta": {
+    "title": "Aymen Assaf — Search Machine Learning Engineer",
+    "description": "Portfolio d'Aymen Assaf, Search Machine Learning Engineer & Software Engineer. Moteurs de recherche, systèmes de recommandation, NLP/LLM et architectures distribuées. Disponible pour un stage dès janvier 2027 — Calais, France."
+  }
+}
