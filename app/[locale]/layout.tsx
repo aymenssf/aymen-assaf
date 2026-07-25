@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { generalSans, jetbrainsMono } from "@/app/fonts";
 import { Cursor } from "@/components/ui/Cursor";
 import { GridOverlay } from "@/components/ui/GridOverlay";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import { NavRail } from "@/components/ui/NavRail";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${generalSans.variable} ${jetbrainsMono.variable}`}>
       <body>
         <NextIntlClientProvider>
+          <MotionProvider>
           <a
             href="#main"
             className="label-mono sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink"
@@ -62,6 +64,7 @@ export default async function LocaleLayout({
           <main id="main" className="relative z-10 pt-12 lg:pt-0 lg:pl-rail">
             {children}
           </main>
+          </MotionProvider>
         </NextIntlClientProvider>
       </body>
     </html>
