@@ -7,7 +7,6 @@ import { alternates, SITE_URL } from "@/lib/site";
 import { generalSans, jetbrainsMono } from "@/app/fonts";
 import { JsonLd } from "@/components/JsonLd";
 import { Cursor } from "@/components/ui/Cursor";
-import { DuotoneDefs } from "@/components/ui/Duotone";
 import { GridOverlay } from "@/components/ui/GridOverlay";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { NavRail } from "@/components/ui/NavRail";
@@ -84,7 +83,6 @@ export default async function LocaleLayout({
             >
               {t("skip")}
             </a>
-            <DuotoneDefs />
             <GridOverlay />
             <NavRail />
             <ScrollProgress />

@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import portrait from "@/public/portrait.jpg";
+// Duotone précalculé par scripts/duotone-portrait.mjs (LUT calibrée sur
+// l'histogramme réel) plutôt qu'un filtre CSS/SVG au runtime : un filtre
+// naïf sur cette photo en haute clé faisait basculer toute la veste en
+// vert plein, et rendait différemment selon les navigateurs.
+import portrait from "@/public/portrait-duotone.jpg";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 import { cn } from "@/lib/cn";
 
@@ -43,17 +47,6 @@ export function Portrait({ className }: { className?: string }) {
           placeholder="blur"
           sizes="(max-width: 1023px) 124px, 268px"
           className="object-cover"
-          style={{ filter: "contrast(1.18) brightness(0.82) url(#duotone-accent)" }}
-        />
-        {/* Vignette : le fond clair de la source virerait sinon à une masse verte.
-            Elle le renvoie au noir et concentre l'accent sur le visage. */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 58% 48% at 50% 36%, transparent 0%, rgba(10,10,11,0.5) 56%, rgba(10,10,11,0.94) 100%)",
-          }}
         />
         {/* Trame de balayage — évoque un décodage ligne à ligne, pas une photo brute. */}
         <div
