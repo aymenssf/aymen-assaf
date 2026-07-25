@@ -13,7 +13,7 @@ export function Projects() {
   const tp = useTranslations("projects");
 
   return (
-    <Section id="projects" index="0x03" label={t("projects")}>
+    <Section id="projects" index="0x04" label={t("projects")}>
       <div className="col-span-4 md:col-span-10 md:col-start-3">
         <Reveal>
           <p aria-hidden className="font-mono text-xs text-faint">

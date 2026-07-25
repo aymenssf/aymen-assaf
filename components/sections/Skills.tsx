@@ -26,14 +26,14 @@ export function Skills() {
   const setHoveredCluster = useUI((s) => s.setHoveredCluster);
 
   return (
-    <Section id="skills" index="0x04" label={t("skills")}>
-      <div className="col-span-4 grid gap-4 sm:grid-cols-2 md:col-span-10 md:col-start-3">
+    <Section id="skills" index="0x05" label={t("skills")}>
+      <div className="col-span-4 grid gap-8 sm:grid-cols-2 md:col-span-10 md:col-start-3">
         {skillClusters.map((cluster, i) => (
           <Reveal key={cluster.id} index={i} className="h-full">
             <div
               onMouseEnter={() => setHoveredCluster(cluster.id)}
               onMouseLeave={() => setHoveredCluster(null)}
-              className="group h-full border border-line p-6 transition-colors duration-300 hover:border-accent/40 md:p-8"
+              className="group h-full border border-line p-8 transition-colors duration-300 hover:border-accent/40 md:p-10"
             >
               <div className="flex items-center justify-between">
                 <span className="label-mono text-2xs text-faint transition-colors duration-300 group-hover:text-accent">
@@ -43,9 +43,9 @@ export function Skills() {
                   <NodeMotif />
                 </span>
               </div>
-              <h3 className="mt-4 text-md text-ink">{pick(cluster.name, locale)}</h3>
-              <p className="mt-2 max-w-md text-sm text-dim">{pick(cluster.note, locale)}</p>
-              <p className="mt-6 font-mono text-xs leading-relaxed text-dim">
+              <h3 className="mt-6 text-md text-ink">{pick(cluster.name, locale)}</h3>
+              <p className="measure mt-4 text-sm text-dim">{pick(cluster.note, locale)}</p>
+              <p className="mt-8 font-mono text-xs leading-loose text-dim">
                 {cluster.items.map((item) => pick(item, locale)).join(" · ")}
               </p>
             </div>

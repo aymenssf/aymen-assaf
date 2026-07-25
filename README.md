@@ -3,9 +3,10 @@
 Portfolio bilingue (FR/EN) de **Aymen Assaf**, Search Machine Learning Engineer & Software Engineer.
 
 Direction artistique : **Knowledge Graph** — le site se parcourt comme un graphe de connaissances,
-pas comme un CV en ligne. Les sections sont indexées façon adresses mémoire (`0x00` → `0x05`),
+pas comme un CV en ligne. Les sections sont indexées façon adresses mémoire (`0x00` → `0x06`),
 les projets s'ouvrent comme des dossiers système, et le hero rend en WebGL le graphe réel des
-compétences (nœuds = technos, arêtes = projets qui les relient).
+compétences (nœuds = technos, arêtes = projets qui les relient). Le portrait y est traité en
+duotone sous masque hexagonal, relié au graphe par une arête — un nœud parmi les autres.
 
 ## Stack
 
@@ -42,7 +43,8 @@ npm run graph      # recalcule le layout 3D du graphe
 ```
 app/[locale]/        layout (fonts, chrome, JSON-LD) · page one-page · opengraph-image
 components/ui/       primitives : Section, Button, IndexLabel, Cursor, NavRail, ScrollProgress…
-components/sections/ Hero, About, Experience, Projects, ProjectDossier, FlowDiagram, Skills, Contact
+components/sections/ Hero, Portrait, About, Experience, SchoolProjects/SchoolBadge,
+                     Projects/ProjectDossier, FlowDiagram, ProjectShot, Skills, Contact
 components/three/    KnowledgeGraph (Canvas), GraphScene, HeroFallback (SVG)
 content/             données typées bilingues extraites du CV + graph.json / graph-layout.json
 messages/            chaînes d'interface fr.json / en.json
@@ -63,10 +65,10 @@ et le même fichier alimente la scène WebGL, le fallback SVG et l'image OpenGra
 Lighthouse mobile, testé sur `/fr` et `/en` — audité avec `NEXT_PUBLIC_SITE_URL` aligné sur
 l'origine testée, sans quoi l'URL canonique pointe hors origine et le SEO plafonne à 92 en local :
 
-| Locale | Performance | Accessibilité | Bonnes pratiques | SEO |
-| ------ | ----------- | ------------- | ---------------- | --- |
-| `/fr`  | 94          | 100           | 100              | 100 |
-| `/en`  | 96          | 100           | 100              | 100 |
+| Locale | Performance | Accessibilité | Bonnes pratiques | SEO | CLS |
+| ------ | ----------- | ------------- | ---------------- | --- | --- |
+| `/fr`  | 91          | 100           | 100              | 100 | 0   |
+| `/en`  | 91          | 100           | 100              | 100 | 0   |
 
 Décisions notables :
 
@@ -81,8 +83,31 @@ Décisions notables :
 - `prefers-reduced-motion: reduce` désactive Lenis, les boucles GSAP/R3F et le curseur custom ;
   le graphe rend une frame statique.
 - Contrastes validés WCAG AA jusqu'aux labels de 10 px.
+- Le portrait est rendu par une seule instance dimensionnée en CSS (`aspect-[3/4]`, `sizes`
+  responsive) : deux instances masquées téléchargeraient deux images et pénaliseraient le LCP.
+- Navigation mobile en barre basse (cibles de 56 px) plutôt qu'un rail desktop comprimé.
 - L'image OpenGraph est générée au build depuis le même `graph-layout.json` ; son cadrage est
   dérivé des bornes réelles du layout, donc il suit automatiquement une évolution du graphe.
+
+## Éléments à fournir
+
+Rien n'est inventé : tout élément absent est rendu comme emplacement explicitement étiqueté,
+et marqué `// TODO` dans les données.
+
+| Élément                  | Fichier                             | État actuel                         |
+| ------------------------ | ----------------------------------- | ----------------------------------- |
+| Dépôts PRISM / RAG / GAN | `content/projects.ts` → `githubUrl` | « Repo privé »                      |
+| Dépôt Transcendence      | `content/school.ts` → `githubUrl`   | « Repo privé »                      |
+| Captures des 4 projets   | `content/*.ts` → `visual`           | Cadre 16/10 « // visuel à fournir » |
+
+Pour brancher un visuel, déposer l'image dans `public/`, puis :
+
+```ts
+import shot from "@/public/prism-cine.png"; // import statique = blurDataURL auto
+visual: { src: shot, alt: l("Interface PRISM CINE", "PRISM CINE interface") },
+```
+
+L'emplacement 16/10 étant déjà réservé, l'ajout d'une capture ne provoque aucun décalage (CLS 0).
 
 ## Déploiement
 

@@ -33,9 +33,9 @@
   --text-base: 1rem;
   --text-base--line-height: 1.65;
   --text-md: 1.333rem;
-  --text-md--line-height: 1.4;
+  --text-md--line-height: 1.6;
   --text-lg: 1.777rem;
-  --text-lg--line-height: 1.25;
+  --text-lg--line-height: 1.2;
   --text-xl: 2.369rem;
   --text-xl--line-height: 1.1;
   --text-2xl: 3.157rem;
@@ -110,6 +110,11 @@
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide-mono);
   text-transform: uppercase;
+}
+
+/* Longueur de ligne confortable : 65-75 caractères. */
+@utility measure {
+  max-width: 68ch;
 }
 
 @utility watermark {

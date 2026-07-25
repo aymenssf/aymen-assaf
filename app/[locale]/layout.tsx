@@ -7,6 +7,7 @@ import { alternates, SITE_URL } from "@/lib/site";
 import { generalSans, jetbrainsMono } from "@/app/fonts";
 import { JsonLd } from "@/components/JsonLd";
 import { Cursor } from "@/components/ui/Cursor";
+import { DuotoneDefs } from "@/components/ui/Duotone";
 import { GridOverlay } from "@/components/ui/GridOverlay";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { NavRail } from "@/components/ui/NavRail";
@@ -83,12 +84,14 @@ export default async function LocaleLayout({
             >
               {t("skip")}
             </a>
+            <DuotoneDefs />
             <GridOverlay />
             <NavRail />
             <ScrollProgress />
             <Cursor />
             <SmoothScroll />
-            <main id="main" className="relative z-10 pt-12 lg:pt-0 lg:pl-rail">
+            {/* Marges réservées au bandeau haut et à la barre d'index basse en mobile. */}
+            <main id="main" className="relative z-10 pt-14 pb-14 lg:pt-0 lg:pb-0 lg:pl-rail">
               {children}
             </main>
           </MotionProvider>

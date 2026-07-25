@@ -15,7 +15,7 @@ export function Contact() {
   const year = buildDate.slice(0, 4) || "2026";
 
   return (
-    <Section id="contact" index="0x05" label={t("contact")} className="pb-10">
+    <Section id="contact" index="0x06" label={t("contact")} className="pb-10">
       <div className="col-span-4 md:col-span-9 md:col-start-3">
         <Reveal>
           <p className="max-w-2xl text-md leading-normal text-ink md:text-lg">{tc("lead")}</p>

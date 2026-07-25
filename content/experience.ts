@@ -14,7 +14,7 @@ export type Experience = {
 export const experiences: Experience[] = [
   {
     id: "innovx",
-    company: "INNOVX (Groupe OCP)",
+    company: "INNOVX",
     role: { fr: "Stagiaire Data Scientist / IA", en: "Data Science / AI Intern" },
     place: { fr: "Casablanca, Maroc", en: "Casablanca, Morocco" },
     period: { fr: "Février — Août 2026", en: "February — August 2026" },

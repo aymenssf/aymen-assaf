@@ -9,7 +9,8 @@
     "ariaMain": "Section navigation",
     "ariaLocale": "Switch language",
     "skip": "Skip to content",
-    "top": "Back to top"
+    "top": "Back to top",
+    "school": "42 School"
   },
   "hero": {
     "role": "Search Machine Learning Engineer · Software Engineer",
@@ -31,7 +32,15 @@
     "problem": "Problem",
     "architecture": "Architecture",
     "metrics": "Metrics",
-    "stack": "Stack"
+    "stack": "Stack",
+    "viewCode": "View the code",
+    "privateRepo": "Private repo",
+    "visualPending": "// visual pending",
+    "statusValidated": "Validated",
+    "statusWip": "In progress"
+  },
+  "school": {
+    "intro": "1337 / 42 Network curriculum — pure software engineering, peer-evaluated."
   },
   "clusters": {
     "search": "Search & Recsys",

@@ -25,13 +25,14 @@ export function Section({
       id={id}
       data-section={id}
       className={cn(
-        "relative scroll-mt-20 border-t border-line/60 px-gutter py-[clamp(4rem,10vh,8rem)]",
+        // Respiration : 64px mobile / 120px+ desktop (règle de densité v2).
+        "relative scroll-mt-24 border-t border-line/60 px-gutter py-16 lg:py-30",
         className,
       )}
     >
       <div className="mx-auto grid max-w-[90rem] grid-cols-4 gap-x-4 md:grid-cols-12 md:gap-x-6">
-        <div className="col-span-4 mb-8 md:col-span-2 md:mb-0">
-          <h2 className="md:sticky md:top-24">
+        <div className="col-span-4 mb-10 md:col-span-2 md:mb-0">
+          <h2 className="md:sticky md:top-28">
             <IndexLabel index={index}>{label}</IndexLabel>
           </h2>
         </div>

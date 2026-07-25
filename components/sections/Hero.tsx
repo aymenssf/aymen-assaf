@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { HeroFallback } from "@/components/three/HeroFallback";
+import { Portrait } from "@/components/sections/Portrait";
 import { supportsWebGL } from "@/lib/webgl";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 import { useUI } from "@/lib/store";
@@ -72,28 +73,34 @@ export function Hero() {
         <p className="watermark mt-2">{t("location")}</p>
       </div>
 
-      <div className="pointer-events-none relative z-10 px-gutter pb-14 lg:pb-18">
-        <div className="mx-auto max-w-[90rem]">
-          <p className="label-mono text-dim">
-            <span className="text-accent">0x00</span> — index
-          </p>
-          <h1 className="mt-5 font-display text-2xl font-medium tracking-tightest text-ink uppercase md:text-3xl xl:text-4xl">
-            Aymen Assaf
-          </h1>
-          <p className="label-mono mt-5 text-accent">{t("role")}</p>
-          <p className="mt-5 max-w-xl text-sm text-dim md:text-base">{t("tagline")}</p>
+      <div className="pointer-events-none relative z-10 px-gutter pb-20 lg:pb-24">
+        {/* column-reverse : le portrait passe au-dessus du texte en mobile,
+            à sa droite en desktop — sans dupliquer l'image. */}
+        <div className="mx-auto flex max-w-[90rem] flex-col-reverse items-start gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+          <div>
+            <p className="label-mono text-dim">
+              <span className="text-accent">0x00</span> — index
+            </p>
+            <h1 className="mt-6 font-display text-2xl font-medium tracking-tightest text-ink uppercase md:text-3xl xl:text-4xl">
+              Aymen Assaf
+            </h1>
+            <p className="label-mono mt-6 text-accent">{t("role")}</p>
+            <p className="measure mt-6 text-sm text-dim md:text-base">{t("tagline")}</p>
 
-          {/* Indice réservé au pointeur fin : le survol n'existe pas au toucher. */}
-          <p className="label-mono mt-9 min-h-4 text-2xs text-faint">
-            {hoveredNode ? (
-              <>
-                <span className="text-accent">▸</span> {hoveredNode.label} ::{" "}
-                {tc(hoveredNode.cluster)} · deg({hoveredNode.degree})
-              </>
-            ) : mode === "gl" ? (
-              <span className="hidden lg:inline">{t("nodeHint")}</span>
-            ) : null}
-          </p>
+            {/* Indice réservé au pointeur fin : le survol n'existe pas au toucher. */}
+            <p className="label-mono mt-10 min-h-4 text-2xs text-faint">
+              {hoveredNode ? (
+                <>
+                  <span className="text-accent">▸</span> {hoveredNode.label} ::{" "}
+                  {tc(hoveredNode.cluster)} · deg({hoveredNode.degree})
+                </>
+              ) : mode === "gl" ? (
+                <span className="hidden lg:inline">{t("nodeHint")}</span>
+              ) : null}
+            </p>
+          </div>
+
+          <Portrait className="shrink-0 lg:mb-8" />
         </div>
       </div>
     </section>

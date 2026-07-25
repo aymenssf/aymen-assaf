@@ -9,7 +9,8 @@
     "ariaMain": "Navigation des sections",
     "ariaLocale": "Changer de langue",
     "skip": "Aller au contenu",
-    "top": "Revenir en haut"
+    "top": "Revenir en haut",
+    "school": "École 42"
   },
   "hero": {
     "role": "Search Machine Learning Engineer · Software Engineer",
@@ -31,7 +32,15 @@
     "problem": "Problème",
     "architecture": "Architecture",
     "metrics": "Métriques",
-    "stack": "Stack"
+    "stack": "Stack",
+    "viewCode": "Voir le code",
+    "privateRepo": "Repo privé",
+    "visualPending": "// visuel à fournir",
+    "statusValidated": "Validé",
+    "statusWip": "En cours"
+  },
+  "school": {
+    "intro": "Cursus 1337 / réseau 42 — ingénierie logicielle pure, évaluée par les pairs."
   },
   "clusters": {
     "search": "Search & Recsys",

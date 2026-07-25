@@ -126,14 +126,49 @@ export function NavRail() {
         </div>
       </header>
 
-      {/* Barre mobile */}
-      <header className="fixed inset-x-0 top-0 z-40 flex h-12 items-center justify-between border-b border-line/60 bg-void/90 px-4 backdrop-blur-sm lg:hidden">
+      {/* Mobile : identité en haut, index en barre basse — cibles tactiles pleines,
+          jamais un rail desktop comprimé. */}
+      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-line/60 bg-void/90 px-5 backdrop-blur-sm lg:hidden">
         {monogram}
-        <span aria-hidden className="label-mono text-2xs text-faint">
+        <span aria-hidden className="label-mono text-2xs text-dim">
           {SECTIONS.find((s) => s.id === active)?.index ?? "0x00"} — {t(active)}
         </span>
         {localeSwitch}
       </header>
+
+      <nav
+        aria-label={t("ariaMain")}
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-void/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-sm lg:hidden"
+      >
+        <ul className="flex items-stretch justify-between px-2">
+          {SECTIONS.map((section) => {
+            const isActive = active === section.id;
+            return (
+              <li key={section.id} className="flex-1">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection(section.id)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={cn(
+                    "flex h-14 w-full flex-col items-center justify-center gap-1.5 font-mono text-2xs tracking-[0.1em] transition-colors",
+                    isActive ? "text-accent" : "text-faint",
+                  )}
+                >
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "h-px w-4 transition-colors",
+                      isActive ? "bg-accent" : "bg-transparent",
+                    )}
+                  />
+                  {section.index}
+                  <span className="sr-only">{t(section.key)}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </>
   );
 }

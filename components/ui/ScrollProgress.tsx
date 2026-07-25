@@ -59,7 +59,7 @@ export function ScrollProgress() {
       <span
         ref={readout}
         aria-hidden
-        className="watermark fixed right-4 bottom-3 z-[90] hidden md:block"
+        className="watermark fixed right-4 bottom-3 z-[90] hidden lg:block"
       />
     </>
   );

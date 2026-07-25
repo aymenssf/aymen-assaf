@@ -4,6 +4,8 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { FlowDiagram } from "@/components/sections/FlowDiagram";
+import { ProjectShot } from "@/components/sections/ProjectShot";
+import { RepoLink } from "@/components/ui/RepoLink";
 import type { Project } from "@/content/projects";
 import { pick, type Locale } from "@/lib/i18n";
 
@@ -61,40 +63,44 @@ export function ProjectDossier({
                 $ cat {project.file}
               </p>
 
-              <div className="mt-7 grid gap-9 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+              <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
                 <div>
                   <h4 className="label-mono text-2xs text-accent">{t("problem")}</h4>
-                  <p className="mt-3 text-sm leading-relaxed text-dim">
+                  <p className="measure mt-4 text-sm leading-relaxed text-dim">
                     {pick(project.problem, locale)}
                   </p>
-                  <h4 className="label-mono mt-7 text-2xs text-accent">{t("architecture")}</h4>
-                  <p className="mt-3 text-sm leading-relaxed text-dim">
+                  <h4 className="label-mono mt-10 text-2xs text-accent">{t("architecture")}</h4>
+                  <p className="measure mt-4 text-sm leading-relaxed text-dim">
                     {pick(project.architecture, locale)}
                   </p>
                 </div>
-                <div className="min-w-0 self-center">
+                <div className="flex min-w-0 flex-col gap-8 self-center">
                   <FlowDiagram
                     steps={project.diagram.steps}
                     loop={project.diagram.loop ? pick(project.diagram.loop, locale) : undefined}
                     locale={locale}
                   />
+                  <ProjectShot visual={project.visual} locale={locale} />
                 </div>
               </div>
 
-              <dl className="mt-9 grid grid-cols-1 gap-4 border-t border-line pt-7 sm:grid-cols-3">
+              <dl className="mt-12 grid grid-cols-1 gap-8 border-t border-line pt-10 sm:grid-cols-3">
                 {project.metrics.map((metric) => (
                   <div key={metric.value}>
                     <dd className="font-mono text-lg text-accent">{metric.value}</dd>
-                    <dt className="label-mono mt-1 text-2xs text-faint">
+                    <dt className="label-mono mt-2 text-2xs text-faint">
                       {pick(metric.label, locale)}
                     </dt>
                   </div>
                 ))}
               </dl>
 
-              <p className="label-mono mt-7 text-2xs text-faint">
-                stack :: {project.stack.join(" · ")}
-              </p>
+              <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
+                <p className="label-mono text-2xs text-faint">
+                  stack :: {project.stack.join(" · ")}
+                </p>
+                <RepoLink url={project.githubUrl} />
+              </div>
             </div>
           </motion.div>
         ) : null}

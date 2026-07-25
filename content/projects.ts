@@ -1,9 +1,21 @@
+import type { StaticImageData } from "next/image";
 import { l, type L } from "@/lib/i18n";
 
 export type DiagramStep = {
   label: L;
   sub?: L;
   accent?: boolean;
+};
+
+/**
+ * Visuel de projet. `src` est un import statique : Next calcule alors
+ * `blurDataURL` au build et les dimensions intrinsèques (donc zéro CLS).
+ * Tant qu'aucune capture n'est fournie, le champ reste absent et
+ * `ProjectShot` rend un cadre de composition identique.
+ */
+export type ProjectVisual = {
+  src: StaticImageData;
+  alt: L;
 };
 
 export type Project = {
@@ -15,12 +27,17 @@ export type Project = {
   metrics: { value: string; label: L }[];
   stack: string[];
   diagram: { steps: DiagramStep[]; loop?: L };
+  /** Absent = « Repo privé » affiché. Aucune URL n'est inventée. */
+  githubUrl?: string;
+  visual?: ProjectVisual;
 };
 
 /** Projets phares (0x03) — post-mortems techniques, données du CV uniquement. */
 export const projects: Project[] = [
   {
     id: "prism-cine",
+    // TODO: renseigner githubUrl une fois l'URL du dépôt PRISM CINE fournie.
+    // TODO: remplacer par visuel réel (PRISM CINE).
     file: "prism_cine.sys",
     title: l(
       "PRISM CINE — moteur de recommandation hybride distribué",
@@ -57,6 +74,8 @@ export const projects: Project[] = [
   },
   {
     id: "rag-humaid",
+    // TODO: renseigner githubUrl une fois l'URL du dépôt RAG HumAID fournie.
+    // TODO: remplacer par visuel réel (RAG HumAID).
     file: "rag_humaid.sys",
     title: l(
       "RAG hybride — analyse de données de crise (HumAID)",
@@ -92,6 +111,8 @@ export const projects: Project[] = [
   },
   {
     id: "satellite-gan",
+    // TODO: renseigner githubUrl une fois l'URL du dépôt SatelliteGAN fournie.
+    // TODO: remplacer par visuel réel (SatelliteGAN).
     file: "satellite_gan.sys",
     title: l(
       "SatelliteGAN — synthèse d'imagerie spatiale agricole",
