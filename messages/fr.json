@@ -19,6 +19,13 @@
     "nodeHint": "// survoler le graphe pour explorer les connexions",
     "scroll": "Défiler"
   },
+  "projects": {
+    "hint": "3 études de cas · cliquer pour déplier",
+    "problem": "Problème",
+    "architecture": "Architecture",
+    "metrics": "Métriques",
+    "stack": "Stack"
+  },
   "clusters": {
     "search": "Search & Recsys",
     "nlp": "NLP & LLM",
