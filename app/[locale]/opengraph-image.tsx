@@ -12,16 +12,45 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Cadrage dérivé des bornes réelles du layout (et non de constantes à la main) :
+ * le graphe est ajusté en largeur dans la moitié droite, le texte occupant
+ * le bas-gauche sous le dégradé.
+ */
+const FLAT = layout.nodes.map((n) => ({
+  id: n.id,
+  x: n.x + n.z * 0.28,
+  y: -(n.y - n.z * 0.14),
+}));
+const BOUNDS = {
+  minX: Math.min(...FLAT.map((n) => n.x)),
+  maxX: Math.max(...FLAT.map((n) => n.x)),
+  minY: Math.min(...FLAT.map((n) => n.y)),
+  maxY: Math.max(...FLAT.map((n) => n.y)),
+};
+/** Moitié droite du cadre : le graphe y tient en entier, sans rognage. */
+const BOX = { x: 566, y: 52, w: 586, h: 526 };
+const SCALE = Math.min(BOX.w / (BOUNDS.maxX - BOUNDS.minX), BOX.h / (BOUNDS.maxY - BOUNDS.minY));
+const CENTER = {
+  x: (BOUNDS.minX + BOUNDS.maxX) / 2,
+  y: (BOUNDS.minY + BOUNDS.maxY) / 2,
+};
+
+const points = new Map(
+  FLAT.map((n) => [
+    n.id,
+    {
+      x: BOX.x + BOX.w / 2 + (n.x - CENTER.x) * SCALE,
+      y: BOX.y + BOX.h / 2 + (n.y - CENTER.y) * SCALE,
+    },
+  ]),
+);
+
 /** OG image générée au build : projection du même graphe que le hero. */
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "hero" });
 
-  const project = (n: { x: number; y: number; z: number }) => ({
-    x: 600 + (n.x + n.z * 0.28) * 132,
-    y: 315 - (n.y - n.z * 0.14) * 132,
-  });
-  const points = new Map(layout.nodes.map((n) => [n.id, project(n)]));
   const weights = new Map(graph.nodes.map((n) => [n.id, n.weight]));
 
   return new ImageResponse(
@@ -40,7 +69,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           const a = points.get(link.source)!;
           const b = points.get(link.target)!;
           return (
-            <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#2b2b31" strokeWidth="1.5" />
+            <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#43434d" strokeWidth="1.5" />
           );
         })}
         {layout.nodes.map((n) => {
@@ -57,15 +86,22 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           );
         })}
       </svg>
+      {/* Voile latéral : le texte reste lisible à gauche, le graphe s'estompe vers lui. */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
+          top: 0,
+          left: 0,
+          // Satori ne dérive pas la hauteur de `inset` : sans dimensions
+          // explicites, `justifyContent` reste sans effet.
+          width: 1200,
+          height: 630,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end",
-          padding: "64px 72px",
-          background: "linear-gradient(to top, #0a0a0b 22%, rgba(10,10,11,0.55) 55%, transparent)",
+          justifyContent: "center",
+          padding: "0 72px",
+          background:
+            "linear-gradient(to right, #0a0a0b 38%, rgba(10,10,11,0.82) 52%, rgba(10,10,11,0) 76%)",
         }}
       >
         <div style={{ display: "flex", color: "#8a8a8e", fontSize: 22, letterSpacing: 4 }}>

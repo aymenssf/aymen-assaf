@@ -60,7 +60,8 @@ et le même fichier alimente la scène WebGL, le fallback SVG et l'image OpenGra
 
 ## Performance & accessibilité
 
-Lighthouse mobile, testé sur `/fr` et `/en` :
+Lighthouse mobile, testé sur `/fr` et `/en` — audité avec `NEXT_PUBLIC_SITE_URL` aligné sur
+l'origine testée, sans quoi l'URL canonique pointe hors origine et le SEO plafonne à 92 en local :
 
 | Locale | Performance | Accessibilité | Bonnes pratiques | SEO |
 | ------ | ----------- | ------------- | ---------------- | --- |
@@ -80,6 +81,8 @@ Décisions notables :
 - `prefers-reduced-motion: reduce` désactive Lenis, les boucles GSAP/R3F et le curseur custom ;
   le graphe rend une frame statique.
 - Contrastes validés WCAG AA jusqu'aux labels de 10 px.
+- L'image OpenGraph est générée au build depuis le même `graph-layout.json` ; son cadrage est
+  dérivé des bornes réelles du layout, donc il suit automatiquement une évolution du graphe.
 
 ## Déploiement
 

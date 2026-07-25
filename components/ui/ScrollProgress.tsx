@@ -14,22 +14,30 @@ export function ScrollProgress() {
 
   useEffect(() => {
     let raf = 0;
-    let lastFrame = performance.now();
+    let lastFrame = 0;
     let lastText = 0;
+    // Dernière latence inter-frame réellement observée pendant un défilement continu.
+    let frameMs = 0;
 
     const update = () => {
       raf = 0;
       const now = performance.now();
-      const delta = Math.min(99, Math.max(1, Math.round(now - lastFrame)));
+      // Au-delà d'une frame plausible, on sort d'une pause : on réamorce la mesure
+      // au lieu d'afficher le temps d'inactivité.
+      const since = now - lastFrame;
+      if (lastFrame > 0 && since <= 100) frameMs = Math.max(1, Math.round(since));
       lastFrame = now;
+
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
       const p = max > 0 ? window.scrollY / max : 0;
       progress.set(p);
+
       if (readout.current && now - lastText > 120) {
         lastText = now;
         const rank = String(Math.round(p * 100)).padStart(3, "0");
-        readout.current.textContent = `RANK ${rank}/100 · Δ${String(delta).padStart(2, "0")}ms`;
+        const latency = frameMs > 0 ? ` · Δ${String(frameMs).padStart(2, "0")}ms` : "";
+        readout.current.textContent = `RANK ${rank}/100${latency}`;
       }
     };
     const onScroll = () => {

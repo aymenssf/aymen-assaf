@@ -10,7 +10,9 @@ import { contact } from "@/content/contact";
 export function Contact() {
   const t = useTranslations("nav");
   const tc = useTranslations("contact");
-  const year = new Date().getFullYear();
+  // Figé au build : `new Date()` côté client désynchroniserait le HTML statique.
+  const buildDate = process.env.NEXT_PUBLIC_BUILD_DATE ?? "";
+  const year = buildDate.slice(0, 4) || "2026";
 
   return (
     <Section id="contact" index="0x05" label={t("contact")} className="pb-10">
@@ -53,8 +55,7 @@ export function Contact() {
             © {year} Aymen Assaf — {tc("footerRole")}
           </p>
           <p className="watermark">
-            build {process.env.NEXT_PUBLIC_COMMIT ?? "dev"} ·{" "}
-            {process.env.NEXT_PUBLIC_BUILD_DATE ?? ""} · 50.9481°N 1.8564°E
+            build {process.env.NEXT_PUBLIC_COMMIT ?? "dev"} · {buildDate} · 50.9481°N 1.8564°E
           </p>
           <p className="watermark w-full md:w-auto">{tc("colophon")}</p>
         </footer>
