@@ -12,8 +12,11 @@
   --color-raise: #17171a;
   --color-line: #232326;
   --color-ink: #f4f4f0;
+  /* dim 5.7:1 et faint 4.8:1 sur --color-void : AA tenu même en 10px. */
   --color-dim: #8a8a8e;
-  --color-faint: #55555a;
+  --color-faint: #7e7e85;
+  /* Trait décoratif uniquement — jamais utilisé pour du texte. */
+  --color-hairline: #55555a;
   --color-accent: #b4f461;
   --color-accent-ink: #0a0a0b;
 

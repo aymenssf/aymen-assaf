@@ -28,10 +28,11 @@ export function FlowDiagram({
   const boxY = 18;
 
   return (
-    <div className="overflow-x-auto">
+    <div className="w-full overflow-x-auto">
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="min-w-[600px]"
+        preserveAspectRatio="xMidYMid meet"
+        className="h-auto w-full min-w-[520px]"
         role="img"
         aria-label={steps.map((s) => pick(s.label, locale)).join(" → ")}
       >

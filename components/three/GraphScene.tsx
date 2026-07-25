@@ -12,11 +12,13 @@ import { ScrollTrigger } from "@/lib/gsap";
 type GraphNode = (typeof graph.nodes)[number];
 
 const NODE_BASE = new THREE.Color("#82828a");
+/** Les hubs (weight 3) portent l'accent au repos — cohérent avec le fallback SVG. */
+const NODE_HUB = new THREE.Color("#b4f461");
 const NODE_ACCENT = new THREE.Color("#b4f461");
 const NODE_FADE = new THREE.Color("#2c2c31");
-const EDGE_BASE = new THREE.Color("#2b2b31");
-const EDGE_ACCENT = new THREE.Color("#87b949");
-const EDGE_FADE = new THREE.Color("#1a1a1e");
+const EDGE_BASE = new THREE.Color("#43434d");
+const EDGE_ACCENT = new THREE.Color("#9ad152");
+const EDGE_FADE = new THREE.Color("#232329");
 
 const CAM_START = new THREE.Vector3(0, 0.25, 9.0);
 const CAM_END = new THREE.Vector3(0.32, 0.05, 2.6);
@@ -34,6 +36,10 @@ function nodeScale(node: GraphNode): number {
   return 0.75 + 0.45 * (node.weight - 1);
 }
 
+function restColor(node: GraphNode): THREE.Color {
+  return node.weight >= 3 ? NODE_HUB : NODE_BASE;
+}
+
 /**
  * Scène du graphe de connaissances. `frameloop="demand"` :
  * l'invalidation vient (a) de la boucle de pulsation ~30fps quand le
@@ -42,6 +48,7 @@ function nodeScale(node: GraphNode): number {
 export function GraphScene({ animate }: { animate: boolean }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const lineMat = useRef<THREE.LineBasicMaterial>(null);
+  const group = useRef<THREE.Group>(null);
   const reduced = usePrefersReducedMotion();
   const camera = useThree((s) => s.camera);
   const hoveredId = useRef<string | null>(null);
@@ -74,7 +81,7 @@ export function GraphScene({ animate }: { animate: boolean }) {
       const s = nodeScale(node);
       m.makeScale(s, s, s).setPosition(p);
       inst.setMatrixAt(i, m);
-      inst.setColorAt(i, NODE_BASE);
+      inst.setColorAt(i, restColor(node));
     });
     inst.instanceMatrix.needsUpdate = true;
     if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
@@ -92,7 +99,7 @@ export function GraphScene({ animate }: { animate: boolean }) {
         hoverId !== null && (id === hoverId || (neighbors?.has(id) ?? false));
 
       graph.nodes.forEach((node, i) => {
-        let color = NODE_BASE;
+        let color = restColor(node);
         if (hoverId) color = inSubgraph(node.id) ? NODE_ACCENT : NODE_FADE;
         else if (cluster) color = node.cluster === cluster ? NODE_ACCENT : NODE_FADE;
         inst.setColorAt(i, color);
@@ -103,8 +110,7 @@ export function GraphScene({ animate }: { animate: boolean }) {
       graph.links.forEach((link, i) => {
         let color = EDGE_BASE;
         if (hoverId) {
-          color =
-            inSubgraph(link.source) && inSubgraph(link.target) ? EDGE_ACCENT : EDGE_FADE;
+          color = inSubgraph(link.source) && inSubgraph(link.target) ? EDGE_ACCENT : EDGE_FADE;
         } else if (cluster) {
           const a = graph.nodes.find((n) => n.id === link.source)!;
           const b = graph.nodes.find((n) => n.id === link.target)!;
@@ -166,6 +172,13 @@ export function GraphScene({ animate }: { animate: boolean }) {
     const p = useUI.getState().heroProgress;
     const eased = p * p * (3 - 2 * p);
     camTarget.lerpVectors(CAM_START, CAM_END, eased);
+
+    // Un viewport étroit recadre le nuage : on réduit le graphe plutôt que de
+    // reculer la caméra, qui le ferait sortir du brouillard.
+    if (group.current) {
+      const s = THREE.MathUtils.clamp(state.viewport.aspect / 1.55, 0.45, 1);
+      group.current.scale.setScalar(s);
+    }
     const parallax = reduced ? 0 : 0.35 * (1 - eased);
     camTarget.x += state.pointer.x * parallax;
     camTarget.y += state.pointer.y * parallax * 0.6;
@@ -216,7 +229,7 @@ export function GraphScene({ animate }: { animate: boolean }) {
   };
 
   return (
-    <group>
+    <group ref={group}>
       <lineSegments geometry={edgeGeometry} frustumCulled={false}>
         <lineBasicMaterial
           ref={lineMat}

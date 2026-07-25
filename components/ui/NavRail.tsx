@@ -57,15 +57,20 @@ export function NavRail() {
     </div>
   );
 
+  // Le nom accessible doit contenir le texte visible ("aa") — d'où le sr-only
+  // en complément plutôt qu'un aria-label qui le remplacerait.
   const monogram = (
     <button
       type="button"
       data-cursor="link"
       onClick={() => scrollToSection("index")}
-      aria-label={t("top")}
       className="font-mono text-sm tracking-tight text-ink transition-colors hover:text-accent"
     >
-      aa<span className="text-accent">·</span>
+      aa
+      <span aria-hidden className="text-accent">
+        ·
+      </span>
+      <span className="sr-only">Aymen Assaf — {t("top")}</span>
     </button>
   );
 

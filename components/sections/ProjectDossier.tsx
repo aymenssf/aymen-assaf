@@ -40,9 +40,9 @@ export function ProjectDossier({
           {open ? "[-]" : "[+]"}
         </span>
         <span className="font-mono text-xs text-faint">{project.file}</span>
-        <span className="min-w-0 flex-1 text-base text-ink md:text-md">
+        <h3 className="min-w-0 flex-1 text-base font-normal text-ink md:text-md">
           {pick(project.title, locale)}
-        </span>
+        </h3>
         <span className="label-mono hidden text-2xs text-faint sm:inline">{position}</span>
       </button>
 

@@ -83,14 +83,15 @@ export function Hero() {
           <p className="label-mono mt-5 text-accent">{t("role")}</p>
           <p className="mt-5 max-w-xl text-sm text-dim md:text-base">{t("tagline")}</p>
 
-          <p className="label-mono mt-9 h-4 text-2xs text-faint">
+          {/* Indice réservé au pointeur fin : le survol n'existe pas au toucher. */}
+          <p className="label-mono mt-9 min-h-4 text-2xs text-faint">
             {hoveredNode ? (
               <>
                 <span className="text-accent">▸</span> {hoveredNode.label} ::{" "}
                 {tc(hoveredNode.cluster)} · deg({hoveredNode.degree})
               </>
             ) : mode === "gl" ? (
-              t("nodeHint")
+              <span className="hidden lg:inline">{t("nodeHint")}</span>
             ) : null}
           </p>
         </div>

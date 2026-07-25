@@ -113,7 +113,10 @@ export const projects: Project[] = [
     stack: ["PyTorch", "CycleGAN", "DDPM", "GPU"],
     diagram: {
       steps: [
-        { label: l("Domaine source", "Source domain"), sub: l("images satellites", "satellite imagery") },
+        {
+          label: l("Domaine source", "Source domain"),
+          sub: l("images satellites", "satellite imagery"),
+        },
         { label: l("CycleGAN", "CycleGAN"), sub: l("traduction", "translation") },
         { label: l("DDPM", "DDPM"), sub: l("raffinement", "refinement"), accent: true },
         { label: l("SSIM / FID", "SSIM / FID"), sub: l("validation", "validation") },

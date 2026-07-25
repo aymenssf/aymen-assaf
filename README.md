@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Aymen Assaf
 
-## Getting Started
+Portfolio bilingue (FR/EN) de **Aymen Assaf**, Search Machine Learning Engineer & Software Engineer.
 
-First, run the development server:
+Direction artistique : **Knowledge Graph** — le site se parcourt comme un graphe de connaissances,
+pas comme un CV en ligne. Les sections sont indexées façon adresses mémoire (`0x00` → `0x05`),
+les projets s'ouvrent comme des dossiers système, et le hero rend en WebGL le graphe réel des
+compétences (nœuds = technos, arêtes = projets qui les relient).
+
+## Stack
+
+| Couche          | Techno                                      |
+| --------------- | ------------------------------------------- |
+| Framework       | Next.js 15 (App Router, SSG)                |
+| Langage         | TypeScript strict                           |
+| Styling         | Tailwind CSS 4 — tokens custom via `@theme` |
+| i18n            | next-intl (`/fr`, `/en`, hreflang)          |
+| Animation       | Motion (motion.dev)                         |
+| Scroll narratif | GSAP + ScrollTrigger                        |
+| Smooth scroll   | Lenis                                       |
+| 3D              | React Three Fiber + three                   |
+| État            | Zustand                                     |
+| Typographie     | General Sans (display) · JetBrains Mono     |
+
+## Démarrage
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000 → redirige vers /fr
+npm run build      # build de production
+npm start
+npm run lint
+npm run graph      # recalcule le layout 3D du graphe
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Le build utilise webpack, pas Turbopack : sur Next 15.5.21 le build Turbopack émettait des
+> chunks de développement non minifiés (dont `next-devtools`), coûtant ~40 points de performance
+> Lighthouse.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/[locale]/        layout (fonts, chrome, JSON-LD) · page one-page · opengraph-image
+components/ui/       primitives : Section, Button, IndexLabel, Cursor, NavRail, ScrollProgress…
+components/sections/ Hero, About, Experience, Projects, ProjectDossier, FlowDiagram, Skills, Contact
+components/three/    KnowledgeGraph (Canvas), GraphScene, HeroFallback (SVG)
+content/             données typées bilingues extraites du CV + graph.json / graph-layout.json
+messages/            chaînes d'interface fr.json / en.json
+lib/                 store Zustand, détection WebGL, reduced-motion, tokens i18n, SEO
+scripts/             layout-graph.mjs (d3-force-3d, précalcul du graphe)
+```
 
-## Learn More
+**Contenu** — Tout provient de `CV_Aymen_Assaf_Search_ML.tex`. Les textes structurés (expériences,
+projets, compétences) vivent dans `content/` sous forme `{ fr, en }` typée ; seules les chaînes
+d'interface passent par `messages/`.
 
-To learn more about Next.js, take a look at the following resources:
+**Graphe** — `scripts/layout-graph.mjs` calcule une fois pour toutes les positions 3D
+(d3-force-3d, graine déterministe) dans `content/graph-layout.json`. Aucune simulation au runtime,
+et le même fichier alimente la scène WebGL, le fallback SVG et l'image OpenGraph.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Performance & accessibilité
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Lighthouse mobile, testé sur `/fr` et `/en` :
 
-## Deploy on Vercel
+| Locale | Performance | Accessibilité | Bonnes pratiques | SEO |
+| ------ | ----------- | ------------- | ---------------- | --- |
+| `/fr`  | 94          | 100           | 100              | 100 |
+| `/en`  | 96          | 100           | 100              | 100 |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Décisions notables :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Le Canvas R3F est en `dynamic(..., { ssr: false })` — les ~885 KB de three.js n'entrent jamais
+  dans le chargement initial.
+- `frameloop="demand"` : le rendu n'est invalidé qu'au scroll, à l'interaction, et par une boucle
+  de pulsation ~30 fps active uniquement tant que le hero est visible.
+- DPR clampé `[0.6, 1]` sur pointeur grossier ou `deviceMemory ≤ 4`, `[0.75, 1.5]` sinon. Pas de
+  postprocessing.
+- Sans WebGL — ou avec `?nogl=1` — le hero rend un SVG statique issu du même layout ; three.js
+  n'est alors pas téléchargé du tout.
+- `prefers-reduced-motion: reduce` désactive Lenis, les boucles GSAP/R3F et le curseur custom ;
+  le graphe rend une frame statique.
+- Contrastes validés WCAG AA jusqu'aux labels de 10 px.
+
+## Déploiement
+
+Zéro configuration sur Vercel. Définir `NEXT_PUBLIC_SITE_URL` avec le domaine final pour que
+les URLs canoniques, le hreflang et le sitemap pointent au bon endroit.

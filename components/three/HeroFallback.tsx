@@ -22,15 +22,7 @@ export function HeroFallback() {
         const a = projected.get(link.source)!;
         const b = projected.get(link.target)!;
         return (
-          <line
-            key={i}
-            x1={a.x}
-            y1={a.y}
-            x2={b.x}
-            y2={b.y}
-            stroke="#2b2b31"
-            strokeWidth={0.014}
-          />
+          <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#2b2b31" strokeWidth={0.014} />
         );
       })}
       {layout.nodes.map((node) => {

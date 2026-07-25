@@ -9,9 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: locale === routing.defaultLocale ? 1 : 0.9,
     alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `${SITE_URL}/${l}`]),
-      ),
+      languages: Object.fromEntries(routing.locales.map((l) => [l, `${SITE_URL}/${l}`])),
     },
   }));
 }

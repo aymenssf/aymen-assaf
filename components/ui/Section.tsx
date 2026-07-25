@@ -31,9 +31,9 @@ export function Section({
     >
       <div className="mx-auto grid max-w-[90rem] grid-cols-4 gap-x-4 md:grid-cols-12 md:gap-x-6">
         <div className="col-span-4 mb-8 md:col-span-2 md:mb-0">
-          <div className="md:sticky md:top-24">
+          <h2 className="md:sticky md:top-24">
             <IndexLabel index={index}>{label}</IndexLabel>
-          </div>
+          </h2>
         </div>
         {children}
       </div>
