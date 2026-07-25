@@ -1,14 +1,16 @@
 import { setRequestLocale } from "next-intl/server";
 import { SECTIONS } from "@/lib/sections";
+import { Hero } from "@/components/sections/Hero";
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Squelette provisoire — les sections réelles arrivent aux étapes 4-7.
+  // Squelette provisoire — les sections restantes arrivent aux étapes 5-7.
   return (
     <>
-      {SECTIONS.map((section) => (
+      <Hero />
+      {SECTIONS.filter((s) => s.id !== "index").map((section) => (
         <section
           key={section.id}
           id={section.id}

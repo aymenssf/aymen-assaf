@@ -11,6 +11,20 @@
     "skip": "Aller au contenu",
     "top": "Revenir en haut"
   },
+  "hero": {
+    "role": "Search Machine Learning Engineer · Software Engineer",
+    "status": "Ouvert — stage dès janvier 2027",
+    "location": "Calais, France · UTC+1",
+    "tagline": "Moteurs de recherche, systèmes de recommandation et pipelines NLP/LLM déployés en production. Master 2 Ingénierie des Systèmes Complexes — EILCO.",
+    "nodeHint": "// survoler le graphe pour explorer les connexions",
+    "scroll": "Défiler"
+  },
+  "clusters": {
+    "search": "Search & Recsys",
+    "nlp": "NLP & LLM",
+    "infra": "Infra distribuée",
+    "data": "Data"
+  },
   "meta": {
     "title": "Aymen Assaf — Search Machine Learning Engineer",
     "description": "Portfolio d'Aymen Assaf, Search Machine Learning Engineer & Software Engineer. Moteurs de recherche, systèmes de recommandation, NLP/LLM et architectures distribuées. Disponible pour un stage dès janvier 2027 — Calais, France."
