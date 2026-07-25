@@ -19,6 +19,13 @@
     "nodeHint": "// hover the graph to explore connections",
     "scroll": "Scroll"
   },
+  "contact": {
+    "lead": "A search engine to build, a ranking to optimise, an NLP pipeline to ship?",
+    "availability": "Final-year internship — 6 months, from January 2027 · Calais / remote",
+    "email": "Email",
+    "footerRole": "Search ML Engineer · Software Engineer",
+    "colophon": "Next.js 15 · React Three Fiber · GSAP · hand-built design & code"
+  },
   "projects": {
     "hint": "3 case studies · click to unfold",
     "problem": "Problem",

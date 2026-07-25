@@ -19,6 +19,13 @@
     "nodeHint": "// survoler le graphe pour explorer les connexions",
     "scroll": "Défiler"
   },
+  "contact": {
+    "lead": "Un moteur de recherche à construire, un ranking à optimiser, un pipeline NLP à industrialiser ?",
+    "availability": "Stage de fin d'études — 6 mois, à partir de janvier 2027 · Calais / remote",
+    "email": "Email",
+    "footerRole": "Search ML Engineer · Software Engineer",
+    "colophon": "Next.js 15 · React Three Fiber · GSAP · design & code faits main"
+  },
   "projects": {
     "hint": "3 études de cas · cliquer pour déplier",
     "problem": "Problème",

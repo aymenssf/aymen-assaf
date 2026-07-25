@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { alternates, SITE_URL } from "@/lib/site";
 import { generalSans, jetbrainsMono } from "@/app/fonts";
+import { JsonLd } from "@/components/JsonLd";
 import { Cursor } from "@/components/ui/Cursor";
 import { GridOverlay } from "@/components/ui/GridOverlay";
 import { MotionProvider } from "@/components/ui/MotionProvider";
@@ -23,9 +25,32 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const title = t("title");
+  const description = t("description");
+
   return {
-    title: t("title"),
-    description: t("description"),
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/${locale}`, ...alternates() },
+    keywords: [
+      "Search Machine Learning Engineer",
+      "information retrieval",
+      "recommender systems",
+      "RAG",
+      "NLP",
+      "Aymen Assaf",
+    ],
+    authors: [{ name: "Aymen Assaf" }],
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: `${SITE_URL}/${locale}`,
+      siteName: "Aymen Assaf",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -44,10 +69,12 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "nav" });
+  const tMeta = await getTranslations({ locale, namespace: "meta" });
 
   return (
     <html lang={locale} className={`${generalSans.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <JsonLd locale={locale} description={tMeta("description")} />
         <NextIntlClientProvider>
           <MotionProvider>
           <a
