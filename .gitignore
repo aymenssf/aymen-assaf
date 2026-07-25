@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# source du CV : contient des coordonnées personnelles (téléphone) volontairement
+# absentes du site public. Conservée en local, jamais versionnée.
+CV_*.tex
+*.pdf
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
