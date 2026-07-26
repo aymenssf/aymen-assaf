@@ -56,6 +56,12 @@
     "nodes": "Nodes",
     "links": "Links"
   },
+  "tech": {
+    "title": "Technical stack",
+    "entries": "technologies",
+    "groups": "families",
+    "intro": "Inventory by kind, each entry paired with where it was actually used — a placement or a project, never a self-rated level."
+  },
   "clusters": {
     "search": "Search & Recsys",
     "nlp": "NLP & LLM",

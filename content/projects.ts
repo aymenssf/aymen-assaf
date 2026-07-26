@@ -56,7 +56,7 @@ export const projects: Project[] = [
       { value: "SGD online", label: l("multi-epoch, sans batch", "multi-epoch, no batch") },
       { value: "ε-greedy", label: l("exploration / exploitation", "explore / exploit") },
     ],
-    stack: ["Python", "SVD", "Ray", "Flask", "XMPP / JADE", "Docker"],
+    stack: ["Python", "SVD", "Epsilon-Greedy", "Ray", "Flask", "XMPP / JADE", "Docker"],
     diagram: {
       steps: [
         { label: l("Utilisateurs", "Users"), sub: l("notes + retours", "ratings + feedback") },

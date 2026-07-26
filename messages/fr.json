@@ -56,6 +56,12 @@
     "nodes": "Nœuds",
     "links": "Liens"
   },
+  "tech": {
+    "title": "Stack technique",
+    "entries": "technos",
+    "groups": "familles",
+    "intro": "Inventaire par nature, avec le contexte réel d'utilisation en regard — mission ou projet, jamais un niveau auto-évalué."
+  },
   "clusters": {
     "search": "Search & Recsys",
     "nlp": "NLP & LLM",

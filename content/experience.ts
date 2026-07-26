@@ -50,7 +50,7 @@ export const experiences: Experience[] = [
         en: "Modelled data and built decision dashboards for activity monitoring.",
       },
     ],
-    stack: ["Node.js", "SQL"],
+    stack: ["Node.js", "SQL", "ETL"],
   },
   {
     id: "sadelec",

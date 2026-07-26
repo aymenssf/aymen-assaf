@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { ClusterBars } from "@/components/sections/ClusterBars";
+import { TechStack } from "@/components/sections/TechStack";
 import { skillClusters } from "@/content/skills";
 import { graphTotals } from "@/lib/graph-stats";
 import { pick, type Locale } from "@/lib/i18n";
@@ -63,6 +64,8 @@ export function Skills() {
             </Reveal>
           ))}
         </div>
+
+        <TechStack />
       </div>
     </Section>
   );
