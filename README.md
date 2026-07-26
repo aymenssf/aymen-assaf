@@ -5,8 +5,9 @@ Portfolio bilingue (FR/EN) de **Aymen Assaf**, Search Machine Learning Engineer 
 Direction artistique : **Knowledge Graph** — le site se parcourt comme un graphe de connaissances,
 pas comme un CV en ligne. Les sections sont indexées façon adresses mémoire (`0x00` → `0x06`),
 les projets s'ouvrent comme des dossiers système, et le hero rend en WebGL le graphe réel des
-compétences (nœuds = technos, arêtes = projets qui les relient). Le portrait y est traité en
-duotone sous masque hexagonal, relié au graphe par une arête — un nœud parmi les autres.
+compétences (nœuds = technos, arêtes = projets qui les relient). Le portrait y apparaît sous
+masque hexagonal, relié au graphe par une arête — un nœud parmi les autres, en couleur réelle
+(un traitement duotone testé en cours de route dégradait la reconnaissabilité de la photo).
 
 ## Stack
 
