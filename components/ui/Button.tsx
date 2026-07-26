@@ -24,6 +24,7 @@ export function Button({
   meta,
   className,
   download,
+  onClick,
 }: {
   href?: string;
   children: ReactNode;
@@ -31,6 +32,7 @@ export function Button({
   meta?: string;
   className?: string;
   download?: boolean;
+  onClick?: () => void;
 }) {
   const isExternal = href?.startsWith("http");
   const shared = cn(
@@ -60,6 +62,7 @@ export function Button({
         href={href}
         data-cursor="link"
         download={download}
+        onClick={onClick}
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         className={shared}
       >
@@ -68,7 +71,7 @@ export function Button({
     );
   }
   return (
-    <button type="button" data-cursor="link" className={shared}>
+    <button type="button" data-cursor="link" onClick={onClick} className={shared}>
       {inner}
     </button>
   );

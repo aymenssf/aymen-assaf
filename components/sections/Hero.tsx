@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { HeroFallback } from "@/components/three/HeroFallback";
+import { HeroMetrics } from "@/components/sections/HeroMetrics";
 import { Portrait } from "@/components/sections/Portrait";
 import { supportsWebGL } from "@/lib/webgl";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
@@ -48,6 +49,7 @@ export function Hero() {
       ref={sectionRef}
       id="index"
       data-section="index"
+      data-island
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden"
     >
       <div className="absolute inset-0">
@@ -86,6 +88,8 @@ export function Hero() {
             </h1>
             <p className="label-mono mt-6 text-accent">{t("role")}</p>
             <p className="measure mt-6 text-sm text-dim md:text-base">{t("tagline")}</p>
+
+            <HeroMetrics />
 
             {/* Indice réservé au pointeur fin : le survol n'existe pas au toucher. */}
             <p className="label-mono mt-10 min-h-4 text-2xs text-faint">

@@ -55,8 +55,13 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#f7f7f2",
 };
+
+/* Exécuté avant la première peinture (script inline bloquant) : applique le
+   thème persisté sans flash. Le SSR émet data-theme="light" (défaut clair
+   du design v3) ; suppressHydrationWarning couvre la divergence éventuelle. */
+const THEME_INIT = `try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";var d=document.documentElement;d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0a0a0b":"#f7f7f2")}catch(e){}`;
 
 export default async function LocaleLayout({
   children,
@@ -72,8 +77,14 @@ export default async function LocaleLayout({
   const tMeta = await getTranslations({ locale, namespace: "meta" });
 
   return (
-    <html lang={locale} className={`${generalSans.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang={locale}
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${generalSans.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <JsonLd locale={locale} description={tMeta("description")} />
         <NextIntlClientProvider>
           <MotionProvider>

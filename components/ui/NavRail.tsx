@@ -4,7 +4,10 @@ import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { SECTIONS } from "@/lib/sections";
+import { playUI } from "@/lib/sound";
 import { scrollToSection, useUI } from "@/lib/store";
+import { SoundToggle } from "@/components/ui/SoundToggle";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/cn";
 
 /**
@@ -63,7 +66,7 @@ export function NavRail() {
     <button
       type="button"
       data-cursor="link"
-      onClick={() => scrollToSection("index")}
+      onClick={() => scrollToSection("index", "0x00")}
       className="font-mono text-sm tracking-tight text-ink transition-colors hover:text-accent"
     >
       aa
@@ -89,7 +92,10 @@ export function NavRail() {
                   <button
                     type="button"
                     data-cursor="link"
-                    onClick={() => scrollToSection(section.id)}
+                    onClick={() => {
+                      scrollToSection(section.id, section.index);
+                      playUI("tick");
+                    }}
                     aria-label={t(section.key)}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
@@ -119,6 +125,10 @@ export function NavRail() {
         </nav>
 
         <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-4">
+            <SoundToggle />
+            <ThemeToggle />
+          </div>
           {localeSwitch}
           <span aria-hidden className="watermark [writing-mode:vertical-rl]">
             50.9481°N — 1.8564°E
@@ -133,7 +143,10 @@ export function NavRail() {
         <span aria-hidden className="label-mono text-2xs text-dim">
           {SECTIONS.find((s) => s.id === active)?.index ?? "0x00"} — {t(active)}
         </span>
-        {localeSwitch}
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          {localeSwitch}
+        </div>
       </header>
 
       <nav

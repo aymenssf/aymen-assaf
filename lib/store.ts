@@ -25,6 +25,12 @@ type UIState = {
   setHoveredNode: (n: HoveredNode | null) => void;
   /** Progression de sortie du hero (0→1) — pilote la caméra. Mise à jour transiente. */
   heroProgress: number;
+  /** Index hexa de la section ciblée par la navigation — le curseur custom
+      se morphe brièvement en indicateur (`at` déduplique les tirs successifs). */
+  sectionPulse: { index: string; at: number } | null;
+  /** Sons UI opt-in (muet par défaut) — piloté par <SoundToggle/>. */
+  soundOn: boolean;
+  setSoundOn: (on: boolean) => void;
 };
 
 export const useUI = create<UIState>((set) => ({
@@ -37,12 +43,16 @@ export const useUI = create<UIState>((set) => ({
   hoveredNode: null,
   setHoveredNode: (hoveredNode) => set({ hoveredNode }),
   heroProgress: 0,
+  sectionPulse: null,
+  soundOn: false,
+  setSoundOn: (soundOn) => set({ soundOn }),
 }));
 
 /** Scroll vers une ancre : Lenis si actif, sinon natif (reduced-motion → saut direct). */
-export function scrollToSection(id: string) {
+export function scrollToSection(id: string, index?: string) {
   const el = document.getElementById(id);
   if (!el) return;
+  if (index) useUI.setState({ sectionPulse: { index, at: performance.now() } });
   const lenis = useUI.getState().lenis;
   if (lenis) {
     lenis.scrollTo(el, { offset: 0 });

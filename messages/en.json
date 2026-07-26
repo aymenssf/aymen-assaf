@@ -10,7 +10,11 @@
     "ariaLocale": "Switch language",
     "skip": "Skip to content",
     "top": "Back to top",
-    "school": "42 School"
+    "school": "42 School",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme",
+    "soundOn": "Enable interface sounds",
+    "soundOff": "Mute interface sounds"
   },
   "hero": {
     "role": "Search Machine Learning Engineer · Software Engineer",
@@ -18,7 +22,13 @@
     "location": "Calais, France · UTC+1",
     "tagline": "Search engines, recommender systems and NLP/LLM pipelines shipped to production. MSc (M2) in Complex Systems Engineering — EILCO.",
     "nodeHint": "// hover the graph to explore connections",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "metrics": {
+      "detectors": "custom NER detectors",
+      "latency": "recsys feedback loop",
+      "hallucination": "measured RAG hallucination",
+      "etl": "manual processing (ETL)"
+    }
   },
   "contact": {
     "lead": "A search engine to build, a ranking to optimise, an NLP pipeline to ship?",
@@ -41,6 +51,10 @@
   },
   "school": {
     "intro": "1337 / 42 Network curriculum — pure software engineering, peer-evaluated."
+  },
+  "skills": {
+    "nodes": "Nodes",
+    "links": "Links"
   },
   "clusters": {
     "search": "Search & Recsys",

@@ -13,17 +13,21 @@ export function Section({
   label,
   children,
   className,
+  island = false,
 }: {
   id: string;
   index: string;
   label: string;
   children: ReactNode;
   className?: string;
+  /** Îlot sombre : la section reste en tokens sombres quel que soit le thème. */
+  island?: boolean;
 }) {
   return (
     <section
       id={id}
       data-section={id}
+      {...(island ? { "data-island": true } : {})}
       className={cn(
         // Respiration : 64px mobile / 120px+ desktop (règle de densité v2).
         "relative scroll-mt-24 border-t border-line/60 px-gutter py-16 lg:py-30",

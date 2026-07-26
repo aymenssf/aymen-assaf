@@ -10,7 +10,11 @@
     "ariaLocale": "Changer de langue",
     "skip": "Aller au contenu",
     "top": "Revenir en haut",
-    "school": "École 42"
+    "school": "École 42",
+    "themeToDark": "Passer au thème sombre",
+    "themeToLight": "Passer au thème clair",
+    "soundOn": "Activer les sons d'interface",
+    "soundOff": "Couper les sons d'interface"
   },
   "hero": {
     "role": "Search Machine Learning Engineer · Software Engineer",
@@ -18,7 +22,13 @@
     "location": "Calais, France · UTC+1",
     "tagline": "Moteurs de recherche, systèmes de recommandation et pipelines NLP/LLM déployés en production. Master 2 Ingénierie des Systèmes Complexes — EILCO.",
     "nodeHint": "// survoler le graphe pour explorer les connexions",
-    "scroll": "Défiler"
+    "scroll": "Défiler",
+    "metrics": {
+      "detectors": "détecteurs NER métier",
+      "latency": "boucle feedback recsys",
+      "hallucination": "hallucination RAG mesurée",
+      "etl": "traitements manuels (ETL)"
+    }
   },
   "contact": {
     "lead": "Un moteur de recherche à construire, un ranking à optimiser, un pipeline NLP à industrialiser ?",
@@ -41,6 +51,10 @@
   },
   "school": {
     "intro": "Cursus 1337 / réseau 42 — ingénierie logicielle pure, évaluée par les pairs."
+  },
+  "skills": {
+    "nodes": "Nœuds",
+    "links": "Liens"
   },
   "clusters": {
     "search": "Search & Recsys",

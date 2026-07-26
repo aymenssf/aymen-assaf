@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { contact } from "@/content/contact";
+import { playUI } from "@/lib/sound";
 
 export function Contact() {
   const t = useTranslations("nav");
@@ -26,6 +27,7 @@ export function Contact() {
           <a
             href={`mailto:${contact.email}`}
             data-cursor="link"
+            onClick={() => playUI("confirm")}
             className="group mt-10 inline-block max-w-full break-all font-mono text-md text-accent underline decoration-accent/30 underline-offset-8 transition-colors hover:decoration-accent md:text-xl"
           >
             {contact.email}
@@ -34,17 +36,17 @@ export function Contact() {
 
         <Reveal index={2} className="mt-10 flex flex-wrap gap-4">
           <Magnetic>
-            <Button href={`mailto:${contact.email}`} meta="↗">
+            <Button href={`mailto:${contact.email}`} meta="↗" onClick={() => playUI("confirm")}>
               {tc("email")}
             </Button>
           </Magnetic>
           <Magnetic>
-            <Button href={contact.linkedin} meta="↗">
+            <Button href={contact.linkedin} meta="↗" onClick={() => playUI("confirm")}>
               LinkedIn
             </Button>
           </Magnetic>
           <Magnetic>
-            <Button href={contact.github} meta="↗">
+            <Button href={contact.github} meta="↗" onClick={() => playUI("confirm")}>
               GitHub
             </Button>
           </Magnetic>

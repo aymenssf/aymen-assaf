@@ -4,10 +4,12 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { FlowDiagram } from "@/components/sections/FlowDiagram";
+import { MetricCard } from "@/components/sections/MetricCard";
 import { ProjectShot } from "@/components/sections/ProjectShot";
 import { RepoLink } from "@/components/ui/RepoLink";
 import type { Project } from "@/content/projects";
 import { pick, type Locale } from "@/lib/i18n";
+import { playUI } from "@/lib/sound";
 
 /**
  * Étude de cas en « dossier système » : rangée fermée type listing de
@@ -27,6 +29,8 @@ export function ProjectDossier({
   const [open, setOpen] = useState(defaultOpen);
   const t = useTranslations("projects");
   const contentId = `dossier-${project.id}`;
+  // Graine stable par projet : chaque dossier a sa propre signature de sparkline.
+  const seedBase = project.file.split("").reduce((sum, c) => sum + c.charCodeAt(0), 0) % 7;
 
   return (
     <article className="border border-line transition-colors duration-300 hover:border-faint">
@@ -35,7 +39,11 @@ export function ProjectDossier({
         data-cursor="link"
         aria-expanded={open}
         aria-controls={contentId}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          playUI(open ? "close" : "open");
+          setOpen((v) => !v);
+        }}
+        onMouseEnter={() => playUI("tick")}
         className="flex w-full flex-wrap items-baseline gap-x-5 gap-y-1 px-5 py-5 text-left md:px-8"
       >
         <span aria-hidden className="font-mono text-sm text-accent">
@@ -84,16 +92,19 @@ export function ProjectDossier({
                 </div>
               </div>
 
-              <dl className="mt-12 grid grid-cols-1 gap-8 border-t border-line pt-10 sm:grid-cols-3">
-                {project.metrics.map((metric) => (
-                  <div key={metric.value}>
-                    <dd className="font-mono text-lg text-accent">{metric.value}</dd>
-                    <dt className="label-mono mt-2 text-2xs text-faint">
-                      {pick(metric.label, locale)}
-                    </dt>
-                  </div>
+              {/* Métriques en cartes de monitoring — valeurs réelles du CV,
+                  sparkline décorative déterministe (seed = fichier + position). */}
+              <div className="mt-12 grid grid-cols-1 gap-4 border-t border-line pt-10 sm:grid-cols-3">
+                {project.metrics.map((metric, i) => (
+                  <MetricCard
+                    key={metric.value}
+                    label={pick(metric.label, locale)}
+                    value={metric.value}
+                    seed={seedBase + i * 2.3}
+                    index={i}
+                  />
                 ))}
-              </dl>
+              </div>
 
               <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
                 <p className="label-mono text-2xs text-faint">

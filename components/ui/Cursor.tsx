@@ -1,18 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/reduced-motion";
+import { useUI } from "@/lib/store";
+import { cn } from "@/lib/cn";
 
 /**
- * Curseur custom : point accent + anneau amorti qui s'élargit sur
- * les zones `[data-cursor]`. Actif uniquement sur pointeur fin,
- * jamais en reduced-motion (le curseur natif reste sinon).
+ * Curseur custom : point accent + anneau amorti qui s'élargit sur les zones
+ * `[data-cursor]`, et se morphe brièvement en indicateur de section (index
+ * hexa) lors d'une navigation. Actif uniquement sur pointeur fin, jamais en
+ * reduced-motion (le curseur natif reste sinon).
  */
 export function Cursor() {
   const reduced = usePrefersReducedMotion();
   const [enabled, setEnabled] = useState(false);
   const [mode, setMode] = useState<"default" | "link">("default");
+  const [pulse, setPulse] = useState<string | null>(null);
+  const pulseTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -43,7 +48,23 @@ export function Cursor() {
     };
   }, [reduced, x, y]);
 
+  // Navigation de section : l'anneau devient l'indicateur (0x0N) le temps du scroll.
+  useEffect(
+    () =>
+      useUI.subscribe((state, prev) => {
+        if (state.sectionPulse && state.sectionPulse !== prev.sectionPulse) {
+          setPulse(state.sectionPulse.index);
+          clearTimeout(pulseTimer.current);
+          pulseTimer.current = setTimeout(() => setPulse(null), 950);
+        }
+      }),
+    [],
+  );
+  useEffect(() => () => clearTimeout(pulseTimer.current), []);
+
   if (!enabled) return null;
+
+  const state = pulse ? "section" : mode;
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]">
@@ -52,14 +73,26 @@ export function Cursor() {
       </motion.div>
       <motion.div style={{ x: ringX, y: ringY }} className="absolute top-0 left-0">
         <motion.div
-          animate={mode}
+          animate={state}
           variants={{
-            default: { scale: 1, borderColor: "rgba(138, 138, 142, 0.55)" },
-            link: { scale: 1.75, borderColor: "rgba(180, 244, 97, 0.9)" },
+            default: { scale: 1 },
+            link: { scale: 1.75 },
+            section: { scale: 2.6 },
           }}
           transition={{ type: "spring", stiffness: 380, damping: 26 }}
-          className="size-8 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+          className={cn(
+            "size-8 -translate-x-1/2 -translate-y-1/2 rounded-full border transition-colors duration-200",
+            state === "default" ? "border-hairline/70" : "border-accent/90",
+          )}
         />
+        {/* Étiquette hors du div scalé — le texte reste net. */}
+        <motion.span
+          animate={{ opacity: pulse ? 1 : 0 }}
+          transition={{ duration: 0.18 }}
+          className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 font-mono text-2xs tracking-[0.14em] text-accent"
+        >
+          {pulse}
+        </motion.span>
       </motion.div>
     </div>
   );
