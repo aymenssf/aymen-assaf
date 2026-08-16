@@ -1,6 +1,6 @@
 import { l, type L } from "@/lib/i18n";
 import type { ProjectVisual } from "@/content/projects";
-import transcendenceTournament from "@/public/projects/transcendence-tournament.png";
+import transcendenceDashboard from "@/public/projects/transcendence-dashboard.png";
 
 export type SchoolProject = {
   id: string;
@@ -38,10 +38,10 @@ export const schoolProjects: SchoolProject[] = [
     status: "validated",
     githubUrl: "https://github.com/aymenssf/ft_transcendence",
     visual: {
-      src: transcendenceTournament,
+      src: transcendenceDashboard,
       alt: l(
-        "Bracket de tournoi à quatre joueurs — demi-finales et finale, ft_transcendence",
-        "Four-player tournament bracket — semi-finals and grand final, ft_transcendence",
+        "Tableau de bord — statistiques et derniers matchs, ft_transcendence",
+        "Dashboard — stats and recent matches, ft_transcendence",
       ),
     },
   },
