@@ -1,5 +1,6 @@
 import { l, type L } from "@/lib/i18n";
 import type { ProjectVisual } from "@/content/projects";
+import transcendenceTournament from "@/public/projects/transcendence-tournament.png";
 
 export type SchoolProject = {
   id: string;
@@ -29,13 +30,19 @@ export const schoolProjects: SchoolProject[] = [
         "High-concurrency backend architecture for a multiplayer game (asynchronous programming).",
       ),
       l(
-        "Implémentation de WebSockets pour le temps réel et de PostgreSQL pour la persistance des états.",
-        "WebSockets for real-time exchange and PostgreSQL for state persistence.",
+        "Implémentation de WebSockets pour le temps réel et de SQLite (Prisma) pour la persistance des états.",
+        "WebSockets for real-time exchange and SQLite (Prisma) for state persistence.",
       ),
     ],
-    stack: ["Python", "Docker", "PostgreSQL", "WebSockets", "Async"],
+    stack: ["Fastify", "React", "Vite", "TypeScript", "Socket.IO", "Prisma", "Docker"],
     status: "validated",
-    // TODO: renseigner githubUrl une fois l'URL du dépôt fournie.
-    // TODO: remplacer par visuel réel (capture terminal / dashboard du jeu).
+    githubUrl: "https://github.com/aymenssf/ft_transcendence",
+    visual: {
+      src: transcendenceTournament,
+      alt: l(
+        "Bracket de tournoi à quatre joueurs — demi-finales et finale, ft_transcendence",
+        "Four-player tournament bracket — semi-finals and grand final, ft_transcendence",
+      ),
+    },
   },
 ];
