@@ -24,6 +24,7 @@ export type Project = {
   title: L;
   problem: L;
   architecture: L;
+  /** Cartes vides si aucun chiffre réel (CV) n'est disponible — jamais de valeur inventée. */
   metrics: { value: string; label: L }[];
   stack: string[];
   diagram: { steps: DiagramStep[]; loop?: L };
@@ -44,18 +45,16 @@ export const projects: Project[] = [
       "PRISM CINE — distributed hybrid recommendation engine",
     ),
     problem: l(
-      "Recommander des films pertinents en croisant signaux collaboratifs et contenu, tout en intégrant les retours utilisateurs en continu — sans réentraînement batch qui fige le système.",
-      "Recommend relevant movies by combining collaborative and content signals, while ingesting user feedback continuously — without batch retraining freezing the system.",
+      "Recommander des films pertinents en croisant signaux collaboratifs et contenu, tout en intégrant les retours utilisateurs en continu, sans réentraînement batch.",
+      "Recommend relevant movies by combining collaborative and content signals, while ingesting user feedback continuously, without batch retraining.",
     ),
     architecture: l(
       "Factorisation matricielle SVD entraînée par SGD en ligne multi-epoch, combinée à un filtrage par contenu. Orchestration asynchrone distribuée via Ray, exposition Flask, messagerie inter-agents XMPP (JADE), le tout conteneurisé sous Docker. L'exploration est gérée par un algorithme Epsilon-Greedy.",
       "SVD matrix factorization trained with multi-epoch online SGD, combined with content-based filtering. Distributed asynchronous orchestration with Ray, a Flask API surface, XMPP (JADE) inter-agent messaging, all containerized with Docker. Exploration is handled by an Epsilon-Greedy policy.",
     ),
-    metrics: [
-      { value: "<50 ms", label: l("traitement d'un feedback", "feedback processing") },
-      { value: "SGD online", label: l("multi-epoch, sans batch", "multi-epoch, no batch") },
-      { value: "ε-greedy", label: l("exploration / exploitation", "explore / exploit") },
-    ],
+    // Un seul chiffre réel (CV) ; SGD/ε-greedy sont des techniques, pas des
+    // mesures — elles restent dans `stack`, pas ici (cf. mémoire provenance).
+    metrics: [{ value: "<50 ms", label: l("traitement d'un feedback", "feedback processing") }],
     stack: ["Python", "SVD", "Epsilon-Greedy", "Ray", "Flask", "XMPP / JADE", "Docker"],
     diagram: {
       steps: [
@@ -92,7 +91,7 @@ export const projects: Project[] = [
     metrics: [
       { value: "0", label: l("hallucination mesurée", "measured hallucination") },
       { value: "7B", label: l("LLM local quantifié", "local quantized LLM") },
-      { value: "2 étages", label: l("règles + GLiNER", "rules + GLiNER") },
+      { value: "2", label: l("étapes d'extraction : règles + GLiNER", "extraction stages: rules + GLiNER") },
     ],
     stack: ["GLiNER", "SentenceBERT", "Wikidata API", "Mistral-7B", "RAG"],
     diagram: {
@@ -126,11 +125,10 @@ export const projects: Project[] = [
       "Pipeline d'adaptation de domaine combinant CycleGAN (traduction inter-domaines) et modèles de diffusion DDPM (raffinement). Entraînement séquentiel optimisé sur GPU, avec validation quantitative de la fidélité structurelle par SSIM et de la distribution par FID.",
       "Domain-adaptation pipeline combining CycleGAN (cross-domain translation) with DDPM diffusion models (refinement). Sequential GPU training schedule, with quantitative validation of structural fidelity (SSIM) and distribution match (FID).",
     ),
-    metrics: [
-      { value: "SSIM", label: l("cohérence géométrique", "geometric consistency") },
-      { value: "FID", label: l("fidélité de distribution", "distribution fidelity") },
-      { value: "GAN + DDPM", label: l("pipeline séquentiel GPU", "sequential GPU pipeline") },
-    ],
+    // Aucun chiffre mesuré dans le CV pour ce projet : SSIM/FID sont des
+    // méthodes de validation, pas des scores — pas de carte métrique plutôt
+    // qu'une valeur inventée (cf. mémoire provenance).
+    metrics: [],
     stack: ["PyTorch", "CycleGAN", "DDPM", "GPU"],
     diagram: {
       steps: [

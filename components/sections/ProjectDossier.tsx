@@ -8,6 +8,7 @@ import { MetricCard } from "@/components/sections/MetricCard";
 import { ProjectShot } from "@/components/sections/ProjectShot";
 import { RepoLink } from "@/components/ui/RepoLink";
 import type { Project } from "@/content/projects";
+import { cn } from "@/lib/cn";
 import { pick, type Locale } from "@/lib/i18n";
 import { playUI } from "@/lib/sound";
 
@@ -92,19 +93,31 @@ export function ProjectDossier({
                 </div>
               </div>
 
-              {/* Métriques en cartes de monitoring — valeurs réelles du CV,
-                  sparkline décorative déterministe (seed = fichier + position). */}
-              <div className="mt-12 grid grid-cols-1 gap-4 border-t border-line pt-10 sm:grid-cols-3">
-                {project.metrics.map((metric, i) => (
-                  <MetricCard
-                    key={metric.value}
-                    label={pick(metric.label, locale)}
-                    value={metric.value}
-                    seed={seedBase + i * 2.3}
-                    index={i}
-                  />
-                ))}
-              </div>
+              {/* Métriques en cartes de monitoring — valeurs réelles du CV
+                  uniquement (jamais une technique renommée en "métrique") ;
+                  sparkline décorative déterministe (seed = fichier + position).
+                  Grille dimensionnée au nombre réel de cartes : pas de
+                  colonnes vides quand le CV ne fournit qu'un seul chiffre. */}
+              {project.metrics.length > 0 ? (
+                <div
+                  className={cn(
+                    "mt-12 grid grid-cols-1 gap-4 border-t border-line pt-10",
+                    project.metrics.length === 2 && "sm:grid-cols-2",
+                    project.metrics.length >= 3 && "sm:grid-cols-3",
+                    project.metrics.length === 1 && "sm:max-w-xs",
+                  )}
+                >
+                  {project.metrics.map((metric, i) => (
+                    <MetricCard
+                      key={metric.value}
+                      label={pick(metric.label, locale)}
+                      value={metric.value}
+                      seed={seedBase + i * 2.3}
+                      index={i}
+                    />
+                  ))}
+                </div>
+              ) : null}
 
               <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
                 <p className="label-mono text-2xs text-faint">
