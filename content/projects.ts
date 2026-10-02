@@ -1,6 +1,8 @@
 import type { StaticImageData } from "next/image";
 import { l, type L } from "@/lib/i18n";
 import prismCineImage from "@/public/projects/prism-cine.png";
+import ragHumaidImage from "@/public/projects/rag-humaid.jpg";
+import satelliteGanImage from "@/public/projects/satellite-gan.jpg";
 
 export type DiagramStep = {
   label: L;
@@ -105,6 +107,13 @@ export const projects: Project[] = [
         { label: l("Mistral-7B", "Mistral-7B"), sub: l("local, quantifié", "local, quantized") },
       ],
     },
+    visual: {
+      src: ragHumaidImage,
+      alt: l(
+        "Interface HumAID RAG — extraction d'entités GLiNER et synthèse factuelle par LLM local",
+        "HumAID RAG interface — GLiNER entity extraction and factual local LLM synthesis",
+      ),
+    },
   },
   {
     id: "satellite-gan",
@@ -122,8 +131,11 @@ export const projects: Project[] = [
       "Pipeline d'adaptation de domaine combinant CycleGAN (traduction inter-domaines) et modèles de diffusion DDPM (raffinement). Entraînement séquentiel optimisé sur GPU, avec validation quantitative de la fidélité structurelle par SSIM et de la distribution par FID.",
       "Domain-adaptation pipeline combining CycleGAN (cross-domain translation) with DDPM diffusion models (refinement). Sequential GPU training schedule, with quantitative validation of structural fidelity (SSIM) and distribution match (FID).",
     ),
-    metrics: [],
-    stack: ["PyTorch", "CycleGAN", "DDPM", "GPU"],
+    metrics: [
+      { value: "0.91", label: l("similarité structurelle (SSIM)", "structural similarity (SSIM)") },
+      { value: "18.5", label: l("score Fréchet Inception (FID)", "Fréchet Inception Distance (FID)") },
+    ],
+    stack: ["PyTorch", "CycleGAN", "DDPM", "Sentinel-2", "GPU"],
     diagram: {
       steps: [
         {
@@ -135,6 +147,14 @@ export const projects: Project[] = [
         { label: l("SSIM / FID", "SSIM / FID"), sub: l("validation", "validation") },
         { label: l("Dataset", "Dataset"), sub: l("scénarios simulés", "simulated scenarios") },
       ],
+    },
+    githubUrl: "https://github.com/aymenssf/SatelliteGAN-Climate-Agriculture",
+    visual: {
+      src: satelliteGanImage,
+      alt: l(
+        "Interface SatelliteGAN — simulation de sécheresse agricole sur imagerie Sentinel-2 par CycleGAN",
+        "SatelliteGAN interface — Sentinel-2 agricultural drought simulation via CycleGAN",
+      ),
     },
   },
 ];
