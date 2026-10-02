@@ -1,11 +1,8 @@
 import { routing } from "@/i18n/routing";
 
-/** URL canonique — surchargeable via NEXT_PUBLIC_SITE_URL (Vercel). */
+/** URL canonique principale — domaine personnalisé aymenassaf.me */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://aymenassaf.vercel.app")
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://aymenassaf.me"
 ).replace(/\/$/, "");
 
 /** Alternates hreflang pour les deux locales + x-default. */

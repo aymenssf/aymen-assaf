@@ -52,6 +52,17 @@ export async function generateMetadata({
       locale: locale === "fr" ? "fr_FR" : "en_US",
     },
     twitter: { card: "summary_large_image", title, description },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
   };
 }
 
