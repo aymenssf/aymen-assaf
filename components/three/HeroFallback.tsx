@@ -5,12 +5,13 @@ const projected = new Map(
   layout.nodes.map((n) => [n.id, { x: n.x + n.z * 0.28, y: -(n.y - n.z * 0.14) }]),
 );
 
-/**
- * Fallback statique du graphe (WebGL indisponible ou forcé via `?nogl=1`) :
- * projection SVG du même layout précalculé — aucune dégradation visible.
- */
-export function HeroFallback() {
+export function HeroFallback({ theme = "dark" }: { theme?: "light" | "dark" }) {
   const weights = new Map(graph.nodes.map((n) => [n.id, n.weight]));
+  const isLight = theme === "light";
+  const strokeColor = isLight ? "#c8c8bc" : "#2b2b31";
+  const hubColor = isLight ? "#3f7a00" : "#b4f461";
+  const nodeColor = isLight ? "#707078" : "#82828a";
+
   return (
     <svg
       aria-hidden
@@ -22,7 +23,15 @@ export function HeroFallback() {
         const a = projected.get(link.source)!;
         const b = projected.get(link.target)!;
         return (
-          <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#2b2b31" strokeWidth={0.014} />
+          <line
+            key={i}
+            x1={a.x}
+            y1={a.y}
+            x2={b.x}
+            y2={b.y}
+            stroke={strokeColor}
+            strokeWidth={0.014}
+          />
         );
       })}
       {layout.nodes.map((node) => {
@@ -34,7 +43,7 @@ export function HeroFallback() {
             cx={p.x}
             cy={p.y}
             r={0.05 + 0.028 * (w - 1)}
-            fill={w >= 3 ? "#b4f461" : "#82828a"}
+            fill={w >= 3 ? hubColor : nodeColor}
           />
         );
       })}

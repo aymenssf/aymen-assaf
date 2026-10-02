@@ -24,8 +24,8 @@ export function Portrait({ className }: { className?: string }) {
         viewBox="0 0 64 1"
         preserveAspectRatio="none"
       >
-        <line x1="0" y1="0.5" x2="64" y2="0.5" stroke="#43434d" strokeWidth="1" />
-        <circle cx="0" cy="0.5" r="3" fill="#b4f461" />
+        <line x1="0" y1="0.5" x2="64" y2="0.5" stroke="var(--s-line)" strokeWidth="1" />
+        <circle cx="0" cy="0.5" r="3" fill="var(--s-accent)" />
       </svg>
 
       <div className="relative size-full" style={{ clipPath: HEX }}>
@@ -59,7 +59,7 @@ export function Portrait({ className }: { className?: string }) {
         <polygon
           points="50,0 100,25 100,75 50,100 0,75 0,25"
           fill="none"
-          stroke="#b4f461"
+          stroke="var(--s-accent)"
           strokeOpacity="0.55"
           strokeWidth="0.6"
           vectorEffect="non-scaling-stroke"

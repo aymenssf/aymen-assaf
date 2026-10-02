@@ -13,11 +13,11 @@ export function Projects() {
   const tp = useTranslations("projects");
 
   return (
-    <Section id="projects" index="0x04" label={t("projects")} island>
+    <Section id="projects" index="0x04" label={t("projects")}>
       <div className="col-span-4 md:col-span-10 md:col-start-3">
         <Reveal>
-          <p aria-hidden className="font-mono text-xs text-faint">
-            $ ls ./case_studies — {tp("hint")}
+          <p className="label-mono text-2xs text-faint">
+            {tp("hint")}
           </p>
         </Reveal>
         <div className="mt-6 space-y-4">

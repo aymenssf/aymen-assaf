@@ -85,7 +85,7 @@ export function ProjectDossier({
                     loop={project.diagram.loop ? pick(project.diagram.loop, locale) : undefined}
                     locale={locale}
                   />
-                  <ProjectShot visual={project.visual} locale={locale} />
+                  <ProjectShot visual={project.visual} locale={locale} href={project.githubUrl} />
                 </div>
               </div>
 

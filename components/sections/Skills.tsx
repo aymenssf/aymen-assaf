@@ -33,8 +33,8 @@ export function Skills() {
     <Section id="skills" index="0x05" label={t("skills")}>
       <div className="col-span-4 md:col-span-10 md:col-start-3">
         <Reveal>
-          <p aria-hidden className="font-mono text-xs text-faint">
-            $ graph --stats — {graphTotals.nodes} {ts("nodes").toLowerCase()} · {graphTotals.links}{" "}
+          <p className="label-mono text-2xs text-faint">
+            {graphTotals.nodes} {ts("nodes").toLowerCase()} · {graphTotals.links}{" "}
             {ts("links").toLowerCase()}
           </p>
         </Reveal>

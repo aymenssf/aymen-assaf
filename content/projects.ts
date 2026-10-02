@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { l, type L } from "@/lib/i18n";
+import prismCineImage from "@/public/projects/prism-cine.png";
 
 export type DiagramStep = {
   label: L;
@@ -59,6 +60,14 @@ export const projects: Project[] = [
         { label: l("API Flask", "Flask API"), sub: l("recommandation", "served recs") },
       ],
       loop: l("boucle de retour <50 ms", "feedback loop <50 ms"),
+    },
+    githubUrl: "https://github.com/aymenssf/PRISM-CINE",
+    visual: {
+      src: prismCineImage,
+      alt: l(
+        "Interface web PRISM CINE — recommandations de films et notation en ligne",
+        "PRISM CINE web interface — movie recommendations and online rating",
+      ),
     },
   },
   {

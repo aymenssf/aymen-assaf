@@ -9,11 +9,6 @@ const BOX_H = 52;
 const GAP = 42;
 const PAD = 8;
 
-/**
- * Diagramme de pipeline data-driven : boîtes mono reliées par des flèches
- * dessinées (pathLength), boucle de feedback optionnelle. Style filaire —
- * pas d'ombre, pas d'arrondi.
- */
 export function FlowDiagram({
   steps,
   loop,
@@ -38,7 +33,7 @@ export function FlowDiagram({
       >
         {steps.map((step, i) => {
           const x = PAD + i * (BOX_W + GAP);
-          const stroke = step.accent ? "#b4f461" : "#3a3a40";
+          const stroke = step.accent ? "var(--s-accent)" : "var(--s-line)";
           return (
             <motion.g
               key={i}
@@ -51,24 +46,24 @@ export function FlowDiagram({
                 y={boxY}
                 width={BOX_W}
                 height={BOX_H}
-                fill="transparent"
+                fill="var(--s-panel)"
                 stroke={stroke}
                 strokeWidth="1"
               />
-              {/* tick de coin — signature */}
+              {/* tick de coin */}
               <path
                 d={`M ${x} ${boxY + 8} V ${boxY} H ${x + 8}`}
                 fill="none"
-                stroke={step.accent ? "#b4f461" : "#55555a"}
+                stroke={step.accent ? "var(--s-accent)" : "var(--s-hairline)"}
                 strokeWidth="1.5"
               />
               <text
                 x={x + BOX_W / 2}
                 y={boxY + (step.sub ? 22 : 30)}
                 textAnchor="middle"
-                className="font-mono"
+                className="font-mono font-medium"
                 fontSize="12"
-                fill={step.accent ? "#b4f461" : "#f4f4f0"}
+                fill={step.accent ? "var(--s-accent)" : "var(--s-ink)"}
               >
                 {pick(step.label, locale)}
               </text>
@@ -79,7 +74,7 @@ export function FlowDiagram({
                   textAnchor="middle"
                   className="font-mono"
                   fontSize="10"
-                  fill="#8a8a8e"
+                  fill="var(--s-dim)"
                 >
                   {pick(step.sub, locale)}
                 </text>
@@ -99,7 +94,7 @@ export function FlowDiagram({
                 y1={y}
                 x2={x2}
                 y2={y}
-                stroke="#55555a"
+                stroke="var(--s-hairline)"
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -108,7 +103,7 @@ export function FlowDiagram({
               <motion.path
                 d={`M ${x2} ${y - 3.5} L ${x2 + 6} ${y} L ${x2} ${y + 3.5}`}
                 fill="none"
-                stroke="#55555a"
+                stroke="var(--s-hairline)"
                 strokeWidth="1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -126,7 +121,7 @@ export function FlowDiagram({
                     ${PAD + BOX_W / 2} ${height - 26},
                     ${PAD + BOX_W / 2} ${boxY + BOX_H + 4}`}
               fill="none"
-              stroke="#87b949"
+              stroke="var(--s-accent)"
               strokeWidth="1"
               strokeDasharray="4 4"
               initial={{ pathLength: 0 }}
@@ -136,7 +131,7 @@ export function FlowDiagram({
             <motion.path
               d={`M ${PAD + BOX_W / 2 - 3.5} ${boxY + BOX_H + 10} L ${PAD + BOX_W / 2} ${boxY + BOX_H + 4} L ${PAD + BOX_W / 2 + 3.5} ${boxY + BOX_H + 10}`}
               fill="none"
-              stroke="#87b949"
+              stroke="var(--s-accent)"
               strokeWidth="1"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -148,7 +143,7 @@ export function FlowDiagram({
               textAnchor="middle"
               className="font-mono"
               fontSize="10"
-              fill="#87b949"
+              fill="var(--s-accent)"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.4 }}

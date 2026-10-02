@@ -11,14 +11,26 @@ import { ScrollTrigger } from "@/lib/gsap";
 
 type GraphNode = (typeof graph.nodes)[number];
 
-const NODE_BASE = new THREE.Color("#82828a");
-/** Les hubs (weight 3) portent l'accent au repos — cohérent avec le fallback SVG. */
-const NODE_HUB = new THREE.Color("#b4f461");
-const NODE_ACCENT = new THREE.Color("#b4f461");
-const NODE_FADE = new THREE.Color("#2c2c31");
-const EDGE_BASE = new THREE.Color("#43434d");
-const EDGE_ACCENT = new THREE.Color("#9ad152");
-const EDGE_FADE = new THREE.Color("#232329");
+const THEME_PALETTES = {
+  dark: {
+    NODE_BASE: new THREE.Color("#82828a"),
+    NODE_HUB: new THREE.Color("#b4f461"),
+    NODE_ACCENT: new THREE.Color("#b4f461"),
+    NODE_FADE: new THREE.Color("#2c2c31"),
+    EDGE_BASE: new THREE.Color("#43434d"),
+    EDGE_ACCENT: new THREE.Color("#9ad152"),
+    EDGE_FADE: new THREE.Color("#232329"),
+  },
+  light: {
+    NODE_BASE: new THREE.Color("#707078"),
+    NODE_HUB: new THREE.Color("#3f7a00"),
+    NODE_ACCENT: new THREE.Color("#3f7a00"),
+    NODE_FADE: new THREE.Color("#d5d5cb"),
+    EDGE_BASE: new THREE.Color("#b8b8ac"),
+    EDGE_ACCENT: new THREE.Color("#3f7a00"),
+    EDGE_FADE: new THREE.Color("#e5e5dc"),
+  },
+};
 
 const CAM_START = new THREE.Vector3(0, 0.25, 9.0);
 const CAM_END = new THREE.Vector3(0.32, 0.05, 2.6);
@@ -36,16 +48,13 @@ function nodeScale(node: GraphNode): number {
   return 0.75 + 0.45 * (node.weight - 1);
 }
 
-function restColor(node: GraphNode): THREE.Color {
-  return node.weight >= 3 ? NODE_HUB : NODE_BASE;
-}
-
-/**
- * Scène du graphe de connaissances. `frameloop="demand"` :
- * l'invalidation vient (a) de la boucle de pulsation ~30fps quand le
- * hero est visible, (b) du scroll (caméra), (c) des interactions.
- */
-export function GraphScene({ animate }: { animate: boolean }) {
+export function GraphScene({
+  animate,
+  theme = "dark",
+}: {
+  animate: boolean;
+  theme?: "light" | "dark";
+}) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const lineMat = useRef<THREE.LineBasicMaterial>(null);
   const group = useRef<THREE.Group>(null);
@@ -54,6 +63,12 @@ export function GraphScene({ animate }: { animate: boolean }) {
   const hoveredId = useRef<string | null>(null);
   const introStart = useRef<number | null>(null);
   const camTarget = useMemo(() => new THREE.Vector3().copy(CAM_START), []);
+
+  const palette = THEME_PALETTES[theme];
+
+  const restColor = useMemo(() => {
+    return (node: GraphNode) => (node.weight >= 3 ? palette.NODE_HUB : palette.NODE_BASE);
+  }, [palette]);
 
   // Géométrie des arêtes : 2 sommets par lien, couleurs par sommet.
   const edgeGeometry = useMemo(() => {
@@ -64,14 +79,14 @@ export function GraphScene({ animate }: { animate: boolean }) {
       const a = positions.get(link.source)!;
       const b = positions.get(link.target)!;
       verts.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6);
-      colors.set([...EDGE_BASE.toArray(), ...EDGE_BASE.toArray()], i * 6);
+      colors.set([...palette.EDGE_BASE.toArray(), ...palette.EDGE_BASE.toArray()], i * 6);
     });
     geometry.setAttribute("position", new THREE.BufferAttribute(verts, 3));
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     return geometry;
-  }, []);
+  }, [palette]);
 
-  // Matrices d'instances + couleurs initiales.
+  // Matrices d'instances + couleurs initiales et mise à jour lors d'un changement de thème.
   useEffect(() => {
     const inst = mesh.current;
     if (!inst) return;
@@ -85,9 +100,16 @@ export function GraphScene({ animate }: { animate: boolean }) {
     });
     inst.instanceMatrix.needsUpdate = true;
     if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+
+    const colorAttr = edgeGeometry.getAttribute("color") as THREE.BufferAttribute;
+    graph.links.forEach((link, i) => {
+      colorAttr.set([...palette.EDGE_BASE.toArray(), ...palette.EDGE_BASE.toArray()], i * 6);
+    });
+    colorAttr.needsUpdate = true;
+
     introStart.current = reduced ? null : performance.now();
     invalidate();
-  }, [reduced]);
+  }, [reduced, palette, restColor, edgeGeometry]);
 
   // Recolore nœuds + arêtes selon le nœud survolé ou le cluster actif (section 0x04).
   const applyHighlight = useMemo(() => {
@@ -100,28 +122,31 @@ export function GraphScene({ animate }: { animate: boolean }) {
 
       graph.nodes.forEach((node, i) => {
         let color = restColor(node);
-        if (hoverId) color = inSubgraph(node.id) ? NODE_ACCENT : NODE_FADE;
-        else if (cluster) color = node.cluster === cluster ? NODE_ACCENT : NODE_FADE;
+        if (hoverId) color = inSubgraph(node.id) ? palette.NODE_ACCENT : palette.NODE_FADE;
+        else if (cluster) color = node.cluster === cluster ? palette.NODE_ACCENT : palette.NODE_FADE;
         inst.setColorAt(i, color);
       });
       if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
 
       const colorAttr = edgeGeometry.getAttribute("color") as THREE.BufferAttribute;
       graph.links.forEach((link, i) => {
-        let color = EDGE_BASE;
+        let color = palette.EDGE_BASE;
         if (hoverId) {
-          color = inSubgraph(link.source) && inSubgraph(link.target) ? EDGE_ACCENT : EDGE_FADE;
+          color =
+            inSubgraph(link.source) && inSubgraph(link.target)
+              ? palette.EDGE_ACCENT
+              : palette.EDGE_FADE;
         } else if (cluster) {
           const a = graph.nodes.find((n) => n.id === link.source)!;
           const b = graph.nodes.find((n) => n.id === link.target)!;
-          color = a.cluster === cluster && b.cluster === cluster ? EDGE_ACCENT : EDGE_FADE;
+          color = a.cluster === cluster && b.cluster === cluster ? palette.EDGE_ACCENT : palette.EDGE_FADE;
         }
         colorAttr.set([...color.toArray(), ...color.toArray()], i * 6);
       });
       colorAttr.needsUpdate = true;
       invalidate();
     };
-  }, [edgeGeometry]);
+  }, [edgeGeometry, palette, restColor]);
 
   // Le hover d'un cluster dans la section Compétences illumine le graphe.
   useEffect(
@@ -134,8 +159,7 @@ export function GraphScene({ animate }: { animate: boolean }) {
     [applyHighlight],
   );
 
-  // Caméra liée au scroll de sortie du hero. Déclaré ici (chunk lazy) pour ne pas
-  // importer @react-three/fiber dans le bundle initial.
+  // Caméra liée au scroll de sortie du hero.
   useEffect(() => {
     const el = document.getElementById("index");
     if (!el || reduced) return;
@@ -168,13 +192,10 @@ export function GraphScene({ animate }: { animate: boolean }) {
   }, [animate, reduced]);
 
   useFrame((state, delta) => {
-    // Caméra : plongée dans le graphe liée au scroll + parallaxe pointeur.
     const p = useUI.getState().heroProgress;
     const eased = p * p * (3 - 2 * p);
     camTarget.lerpVectors(CAM_START, CAM_END, eased);
 
-    // Un viewport étroit recadre le nuage : on réduit le graphe plutôt que de
-    // reculer la caméra, qui le ferait sortir du brouillard.
     if (group.current) {
       const s = THREE.MathUtils.clamp(state.viewport.aspect / 1.55, 0.45, 1);
       group.current.scale.setScalar(s);
@@ -190,11 +211,9 @@ export function GraphScene({ animate }: { animate: boolean }) {
     camera.lookAt(0, 0, 0);
 
     if (!reduced) {
-      // Respiration des arêtes.
       if (lineMat.current) {
         lineMat.current.opacity = 0.5 + 0.16 * Math.sin(state.clock.elapsedTime * 1.4);
       }
-      // Intro : scale global 0 → 1.
       if (introStart.current !== null && mesh.current) {
         const k = Math.min(1, (performance.now() - introStart.current) / INTRO_MS);
         const ease = 1 - Math.pow(1 - k, 3);

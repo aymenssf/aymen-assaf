@@ -28,9 +28,25 @@ export function Hero() {
   const reduced = usePrefersReducedMotion();
   const hoveredNode = useUI((s) => s.hoveredNode);
 
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
   useEffect(() => {
     const forced = new URLSearchParams(window.location.search).has("nogl");
     setMode(!forced && supportsWebGL() ? "gl" : "fallback");
+  }, []);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      const current = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+      setTheme(current);
+    };
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
   }, []);
 
   // La boucle de pulsation du graphe ne tourne que si le hero est visible.
@@ -49,14 +65,13 @@ export function Hero() {
       ref={sectionRef}
       id="index"
       data-section="index"
-      data-island
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden"
     >
       <div className="absolute inset-0">
         {mode === "gl" ? (
-          <KnowledgeGraph animate={inView && !reduced} />
+          <KnowledgeGraph animate={inView && !reduced} theme={theme} />
         ) : mode === "fallback" ? (
-          <HeroFallback />
+          <HeroFallback theme={theme} />
         ) : null}
         <div
           aria-hidden
