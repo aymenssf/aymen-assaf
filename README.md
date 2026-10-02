@@ -1,6 +1,6 @@
 # Portfolio — Aymen Assaf
 
-Portfolio bilingue (FR/EN) de **Aymen Assaf**, Search Machine Learning Engineer & Software Engineer.
+Portfolio bilingue (FR/EN) de **Aymen Assaf**, Ingénieur Data & IA (Data & AI Engineer).
 
 Direction artistique : **Knowledge Graph** — le site se parcourt comme un graphe de connaissances,
 pas comme un CV en ligne. Les sections sont indexées façon adresses mémoire (`0x00` → `0x06`),

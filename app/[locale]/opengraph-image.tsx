@@ -6,7 +6,7 @@ import { routing } from "@/i18n/routing";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Aymen Assaf — Search Machine Learning Engineer";
+export const alt = "Aymen Assaf — Data & AI Engineer";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

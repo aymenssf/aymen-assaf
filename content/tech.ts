@@ -6,14 +6,11 @@ export type TechEntry = {
   /**
    * Variantes rencontrées dans les tableaux `stack` des expériences et
    * projets. Sert à rattacher automatiquement une techno à ses contextes
-   * d'usage réels (voir lib/tech-stack.ts) — la provenance n'est jamais
-   * saisie à la main, donc jamais désynchronisée du reste du contenu.
+   * d'usage réels (voir lib/tech-stack.ts).
    */
   aliases?: string[];
   /**
-   * Origine hors expérience/projet, quand la techno vient du cursus ou
-   * des certifications plutôt que d'une mission. Évite d'afficher une
-   * provenance vide sans expliquer pourquoi.
+   * Origine hors expérience/projet, quand la techno vient du cursus.
    */
   origin?: L;
 };
@@ -28,10 +25,8 @@ const CURSUS_42 = l("cursus 1337 / 42", "1337 / 42 curriculum");
 const CURSUS_MASTER = l("cursus Master Data Science", "Data Science MSc curriculum");
 
 /**
- * Stack technique (0x05) — inventaire groupé par nature, complémentaire
- * des clusters thématiques : un recruteur qui cherche une techno précise
- * la trouve ici, un ingénieur y lit où elle a réellement servi.
- * Toutes les entrées proviennent du CV, des expériences ou des projets.
+ * Stack technique — inventaire groupé par catégorie, avec le contexte réel
+ * d'utilisation (mission entreprise, projet 1337 ou projet personnel).
  */
 export const techGroups: TechGroup[] = [
   {
@@ -41,12 +36,13 @@ export const techGroups: TechGroup[] = [
       { name: "Python" },
       { name: "SQL" },
       { name: "C / C++", origin: CURSUS_42 },
+      { name: "TypeScript" },
       { name: "Node.js" },
     ],
   },
   {
     code: "TS-02",
-    name: l("Machine Learning", "Machine Learning"),
+    name: l("Machine Learning & IA", "Machine Learning & AI"),
     entries: [
       { name: "PyTorch" },
       { name: "scikit-learn", origin: CURSUS_MASTER },
@@ -72,24 +68,32 @@ export const techGroups: TechGroup[] = [
   },
   {
     code: "TS-04",
-    name: l("Backend & API", "Backend & API"),
+    name: l("Backend & Systèmes", "Backend & Systems"),
     entries: [
       { name: "FastAPI" },
+      { name: "Fastify" },
       { name: "Flask" },
-      { name: "Celery" },
       { name: "WebSockets" },
+      { name: "Socket.IO" },
+      { name: "Celery" },
       { name: "XMPP / JADE" },
-      { name: "Async" },
     ],
   },
   {
     code: "TS-05",
-    name: l("Données & stockage", "Data & storage"),
-    entries: [{ name: "PostgreSQL" }, { name: "Redis" }, { name: "MongoDB" }, { name: "ETL" }],
+    name: l("Données & Stockage", "Data & Storage"),
+    entries: [
+      { name: "PostgreSQL" },
+      { name: "Redis" },
+      { name: "MongoDB" },
+      { name: "SQLite" },
+      { name: "Prisma" },
+      { name: "ETL" },
+    ],
   },
   {
     code: "TS-06",
-    name: l("Infra & outillage", "Infra & tooling"),
+    name: l("Infra & Déploiement", "Infra & Deployment"),
     entries: [
       { name: "Docker" },
       { name: "NGINX" },

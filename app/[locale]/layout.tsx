@@ -34,8 +34,9 @@ export async function generateMetadata({
     description,
     alternates: { canonical: `${SITE_URL}/${locale}`, ...alternates() },
     keywords: [
-      "Search Machine Learning Engineer",
-      "information retrieval",
+      "Data and AI Engineer",
+      "Data Engineer",
+      "Machine Learning Engineer",
       "recommender systems",
       "RAG",
       "NLP",

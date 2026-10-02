@@ -10,66 +10,66 @@
     "ariaLocale": "Changer de langue",
     "skip": "Aller au contenu",
     "top": "Revenir en haut",
-    "school": "École 42",
+    "school": "1337 / 42",
     "themeToDark": "Passer au thème sombre",
     "themeToLight": "Passer au thème clair",
     "soundOn": "Activer les sons d'interface",
     "soundOff": "Couper les sons d'interface"
   },
   "hero": {
-    "role": "Search Machine Learning Engineer · Software Engineer",
-    "status": "Ouvert — stage dès janvier 2027",
-    "location": "Calais, France · UTC+1",
-    "tagline": "Moteurs de recherche, systèmes de recommandation et pipelines NLP/LLM déployés en production. Master 2 Ingénierie des Systèmes Complexes — EILCO.",
-    "nodeHint": "// survoler le graphe pour explorer les connexions",
-    "scroll": "Défiler",
+    "role": "Ingénieur Data & IA",
+    "status": "Disponible pour stage — Janv. 2027",
+    "location": "France / Remote",
+    "tagline": "Conception de pipelines de données, systèmes de machine learning et architectures distribuées. Double cursus Ingénierie des Systèmes Complexes (EILCO) et 1337 (réseau 42).",
+    "nodeHint": "// survoler les nœuds pour voir les connexions",
+    "scroll": "Faire défiler",
     "metrics": {
-      "detectors": "détecteurs NER métier",
-      "latency": "boucle feedback recsys",
+      "detectors": "détecteurs NER en prod",
+      "latency": "latence boucle RecSys",
       "hallucination": "hallucination RAG mesurée",
-      "etl": "traitements manuels (ETL)"
+      "etl": "réduction ETL manuel"
     }
   },
   "contact": {
-    "lead": "Un moteur de recherche à construire, un ranking à optimiser, un pipeline NLP à industrialiser ?",
-    "availability": "Stage de fin d'études — 6 mois, à partir de janvier 2027 · Calais / remote",
+    "lead": "Échangeons — ouvert aux opportunités en Ingénierie Data & IA et stages de fin d'études dès janvier 2027.",
+    "availability": "Stage de fin d'études de 6 mois · à partir de janvier 2027 · Présentiel ou Remote",
     "email": "Email",
-    "footerRole": "Search ML Engineer · Software Engineer",
-    "colophon": "Next.js 15 · React Three Fiber · GSAP · design & code faits main"
+    "footerRole": "Ingénieur Data & IA",
+    "colophon": "Next.js · Three.js · Tailwind CSS"
   },
   "projects": {
-    "hint": "3 études de cas · cliquer pour déplier",
+    "hint": "Projets clés & architectures",
     "problem": "Problème",
     "architecture": "Architecture",
     "metrics": "Métriques",
     "stack": "Stack",
-    "viewCode": "Voir le code",
-    "privateRepo": "Repo privé",
-    "visualPending": "// visuel à fournir",
+    "viewCode": "Code source",
+    "privateRepo": "Projet interne",
+    "visualPending": "// visuel en attente",
     "statusValidated": "Validé",
     "statusWip": "En cours"
   },
   "school": {
-    "intro": "Cursus 1337 / réseau 42 — ingénierie logicielle pure, évaluée par les pairs."
+    "intro": "Cursus 1337 (réseau 42) — programmation système, moteurs réseau concurrents et ingénierie logicielle par les pairs."
   },
   "skills": {
-    "nodes": "Nœuds",
-    "links": "Liens"
+    "nodes": "Compétences",
+    "links": "Liaisons"
   },
   "tech": {
     "title": "Stack technique",
-    "entries": "technos",
-    "groups": "familles",
-    "intro": "Inventaire par nature, avec le contexte réel d'utilisation en regard — mission ou projet, jamais un niveau auto-évalué."
+    "entries": "technologies",
+    "groups": "catégories",
+    "intro": "Outils et frameworks mis en œuvre en entreprise, sur les projets 1337 et en recherche."
   },
   "clusters": {
-    "search": "Search & Recsys",
+    "search": "RecSys & Recherche",
     "nlp": "NLP & LLM",
-    "infra": "Infra distribuée",
-    "data": "Data"
+    "infra": "Systèmes distribués",
+    "data": "Data & ML"
   },
   "meta": {
-    "title": "Aymen Assaf — Search Machine Learning Engineer",
-    "description": "Portfolio d'Aymen Assaf, Search Machine Learning Engineer & Software Engineer. Moteurs de recherche, systèmes de recommandation, NLP/LLM et architectures distribuées. Disponible pour un stage dès janvier 2027 — Calais, France."
+    "title": "Aymen Assaf — Ingénieur Data & IA",
+    "description": "Portfolio d'Aymen Assaf, Ingénieur Data & IA. Systèmes de machine learning, pipelines de données, NLP/LLM et architectures distribuées. Disponible pour un stage dès janvier 2027."
   }
 }

@@ -1,10 +1,10 @@
 import type { L } from "@/lib/i18n";
 
-/** Données Profil (0x01) — extraites du CV, seule source de vérité. */
+/** Données Profil — Aymen Assaf, Ingénieur Data & IA. */
 export const profile = {
   summary: {
-    fr: "Étudiant en Master 2 Ingénierie des Systèmes Complexes à l'EILCO et étudiant actif à 1337. Profil technique spécialisé en ingénierie logicielle et Machine Learning appliqué, avec une expérience de déploiement d'architectures distribuées et de systèmes d'IA en production. Recherche un stage orienté ingénierie — Search Machine Learning Engineer — pour concevoir et optimiser des moteurs de recherche et des systèmes de recommandation à fort impact métier.",
-    en: "Final-year student in Complex Systems Engineering (M2) at EILCO and active student at 1337. Engineering-focused profile specialised in software engineering and applied Machine Learning, with hands-on experience deploying distributed architectures and AI systems to production. Looking for an engineering internship — Search Machine Learning Engineer — to design and optimise search engines and recommender systems with real business impact.",
+    fr: "Étudiant en Master 2 (EILCO) et à 1337 (réseau 42), je conçois des systèmes d'IA et des pipelines de données pensés pour la production. Mon parcours allie modélisation appliquée (systèmes de recommandation, RAG/LLM, vision) et ingénierie logicielle robuste (architectures distribuées, microservices, C/C++ et Python). Je recherche un stage de fin d'études en tant qu'ingénieur Data & IA à partir de janvier 2027.",
+    en: "Completing an M2 in Complex Systems Engineering at EILCO alongside 1337 (42 Network). I focus on production AI systems, reliable data pipelines, and distributed backends. My work bridges applied machine learning (recommender systems, RAG/LLMs, computer vision) with solid software engineering (asynchronous services, C/C++, and Python). Looking for a 6-month Data & AI Engineer internship starting January 2027.",
   } satisfies L,
   education: [
     {
@@ -32,22 +32,22 @@ export const profile = {
     },
     {
       degree: {
-        fr: "Ingénierie logicielle — pédagogie par projets",
-        en: "Software engineering — project-based curriculum",
+        fr: "Ingénierie logicielle — formation par projets",
+        en: "Software Engineering — project-based curriculum",
       } satisfies L,
       school: "1337 UM6P (Réseau 42)",
       place: { fr: "Maroc", en: "Morocco" } satisfies L,
       period: { fr: "2023 — présent", en: "2023 — present" } satisfies L,
       note: {
-        fr: "Algorithmique, programmation système, C/C++",
-        en: "Algorithms, systems programming, C/C++",
+        fr: "Algorithmique, programmation système, C/C++, architectures réseau",
+        en: "Algorithms, systems programming, C/C++, network architectures",
       } satisfies L,
     },
   ],
   languages: [
     { fr: "Français — C1", en: "French — C1" },
-    { fr: "Anglais — C1, langue de travail", en: "English — C1, working language" },
-    { fr: "Arabe — natif", en: "Arabic — native" },
+    { fr: "Anglais — C1 (langue de travail)", en: "English — C1 (working language)" },
+    { fr: "Arabe — langue maternelle", en: "Arabic — native" },
   ] satisfies L[],
   certifications: ["Google Advanced Data Analytics (2025)", "ALX Data Science Programme (2024)"],
 };

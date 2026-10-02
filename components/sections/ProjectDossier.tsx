@@ -50,7 +50,7 @@ export function ProjectDossier({
         <span aria-hidden className="font-mono text-sm text-accent">
           {open ? "[-]" : "[+]"}
         </span>
-        <span className="font-mono text-xs text-faint">{project.file}</span>
+        <span className="label-mono text-2xs text-accent font-medium">[{project.file}]</span>
         <h3 className="min-w-0 flex-1 text-base font-normal text-ink md:text-md">
           {pick(project.title, locale)}
         </h3>
@@ -68,11 +68,7 @@ export function ProjectDossier({
             className="overflow-hidden"
           >
             <div className="border-t border-line px-5 py-7 md:px-8 md:py-9">
-              <p aria-hidden className="font-mono text-xs text-faint">
-                $ cat {project.file}
-              </p>
-
-              <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+              <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
                 <div>
                   <h4 className="label-mono text-2xs text-accent">{t("problem")}</h4>
                   <p className="measure mt-4 text-sm leading-relaxed text-dim">

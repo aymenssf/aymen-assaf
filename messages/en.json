@@ -1,7 +1,7 @@
 {
   "nav": {
     "index": "Index",
-    "profile": "Profile",
+    "profile": "About",
     "experience": "Experience",
     "projects": "Projects",
     "skills": "Skills",
@@ -10,66 +10,66 @@
     "ariaLocale": "Switch language",
     "skip": "Skip to content",
     "top": "Back to top",
-    "school": "42 School",
+    "school": "1337 / 42",
     "themeToDark": "Switch to dark theme",
     "themeToLight": "Switch to light theme",
-    "soundOn": "Enable interface sounds",
-    "soundOff": "Mute interface sounds"
+    "soundOn": "Enable sound effects",
+    "soundOff": "Mute sound effects"
   },
   "hero": {
-    "role": "Search Machine Learning Engineer · Software Engineer",
-    "status": "Open — internship from January 2027",
-    "location": "Calais, France · UTC+1",
-    "tagline": "Search engines, recommender systems and NLP/LLM pipelines shipped to production. MSc (M2) in Complex Systems Engineering — EILCO.",
-    "nodeHint": "// hover the graph to explore connections",
-    "scroll": "Scroll",
+    "role": "Data & AI Engineer",
+    "status": "Available for internship — Jan 2027",
+    "location": "France / Remote",
+    "tagline": "Building production machine learning systems, data pipelines, and low-latency backends. Dual background in Complex Systems Engineering (EILCO) and 1337 (42 Network).",
+    "nodeHint": "// hover graph nodes to inspect connections",
+    "scroll": "Scroll down",
     "metrics": {
-      "detectors": "custom NER detectors",
-      "latency": "recsys feedback loop",
+      "detectors": "production NER detectors",
+      "latency": "RecSys feedback latency",
       "hallucination": "measured RAG hallucination",
-      "etl": "manual processing (ETL)"
+      "etl": "manual ETL reduction"
     }
   },
   "contact": {
-    "lead": "A search engine to build, a ranking to optimise, an NLP pipeline to ship?",
-    "availability": "Final-year internship — 6 months, from January 2027 · Calais / remote",
+    "lead": "Let's connect — open to Data & AI engineering roles and end-of-studies internships starting January 2027.",
+    "availability": "6-month end-of-studies internship · from January 2027 · On-site or Remote",
     "email": "Email",
-    "footerRole": "Search ML Engineer · Software Engineer",
-    "colophon": "Next.js 15 · React Three Fiber · GSAP · hand-built design & code"
+    "footerRole": "Data & AI Engineer",
+    "colophon": "Next.js · Three.js · Tailwind CSS"
   },
   "projects": {
-    "hint": "3 case studies · click to unfold",
+    "hint": "Core projects & architectures",
     "problem": "Problem",
     "architecture": "Architecture",
     "metrics": "Metrics",
     "stack": "Stack",
-    "viewCode": "View the code",
-    "privateRepo": "Private repo",
+    "viewCode": "Source code",
+    "privateRepo": "Internal project",
     "visualPending": "// visual pending",
     "statusValidated": "Validated",
     "statusWip": "In progress"
   },
   "school": {
-    "intro": "1337 / 42 Network curriculum — pure software engineering, peer-evaluated."
+    "intro": "1337 (42 Network) — systems programming, concurrent network engines, and peer-reviewed software engineering."
   },
   "skills": {
-    "nodes": "Nodes",
-    "links": "Links"
+    "nodes": "Skills",
+    "links": "Connections"
   },
   "tech": {
     "title": "Technical stack",
     "entries": "technologies",
-    "groups": "families",
-    "intro": "Inventory by kind, each entry paired with where it was actually used — a placement or a project, never a self-rated level."
+    "groups": "categories",
+    "intro": "Tools and frameworks applied across company internships, 1337 projects, and research."
   },
   "clusters": {
-    "search": "Search & Recsys",
+    "search": "RecSys & Retrieval",
     "nlp": "NLP & LLM",
-    "infra": "Distributed infra",
-    "data": "Data"
+    "infra": "Distributed Systems",
+    "data": "Data & ML"
   },
   "meta": {
-    "title": "Aymen Assaf — Search Machine Learning Engineer",
-    "description": "Portfolio of Aymen Assaf, Search Machine Learning Engineer & Software Engineer. Search engines, recommender systems, NLP/LLM and distributed architectures. Available for an internship from January 2027 — Calais, France."
+    "title": "Aymen Assaf — Data & AI Engineer",
+    "description": "Portfolio of Aymen Assaf, Data & AI Engineer. Machine learning systems, data pipelines, NLP/LLMs, and distributed architectures. Available for a 6-month internship from January 2027."
   }
 }

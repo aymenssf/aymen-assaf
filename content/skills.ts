@@ -9,12 +9,12 @@ export type SkillCluster = {
   note: L;
 };
 
-/** Compétences (0x04) — organisées par cluster, miroir du graphe WebGL. */
+/** Compétences — organisées par cluster technique. */
 export const skillClusters: SkillCluster[] = [
   {
     id: "search",
     code: "CL-01",
-    name: { fr: "Search & Recsys", en: "Search & Recsys" },
+    name: { fr: "Recommandation & Search", en: "RecSys & Search" },
     items: [
       l("Systèmes de recommandation", "Recommender systems"),
       l("SVD / factorisation matricielle", "SVD / matrix factorization"),
@@ -24,8 +24,8 @@ export const skillClusters: SkillCluster[] = [
       l("Epsilon-Greedy", "Epsilon-Greedy"),
     ],
     note: {
-      fr: "Ranking, retrieval et exploration — du feedback temps réel (<50ms) à la désambiguïsation d'entités.",
-      en: "Ranking, retrieval and exploration — from real-time feedback (<50ms) to entity disambiguation.",
+      fr: "Modélisation, retrieval et exploration — de l'ingestion temps réel (<50ms) à la désambiguïsation d'entités.",
+      en: "Modeling, retrieval, and exploration — from real-time feedback ingestion (<50ms) to semantic disambiguation.",
     },
   },
   {
@@ -36,40 +36,40 @@ export const skillClusters: SkillCluster[] = [
       l("spaCy", "spaCy"),
       l("Microsoft Presidio", "Microsoft Presidio"),
       l("GLiNER", "GLiNER"),
-      l("NER FR/EN", "French/English NER"),
-      l("Orchestration LLM multi-fournisseurs", "Multi-provider LLM orchestration"),
+      l("NER bilingue FR/EN", "Bilingual French/English NER"),
+      l("Orchestration LLM", "LLM Orchestration"),
       l("Mistral-7B quantifié", "Quantized Mistral-7B"),
     ],
     note: {
-      fr: "Pipelines NLP de production : extraction, anonymisation, prompting structuré à sorties JSON validées.",
-      en: "Production NLP pipelines: extraction, anonymisation, structured prompting with validated JSON outputs.",
+      fr: "Pipelines NLP de production : extraction, anonymisation Presidio et orchestration LLM à sorties JSON validées.",
+      en: "Production NLP pipelines: extraction, Presidio anonymization, and structured LLM orchestration with validated outputs.",
     },
   },
   {
     id: "infra",
     code: "CL-03",
-    name: { fr: "Infra distribuée", en: "Distributed infra" },
+    name: { fr: "Systèmes & Backend", en: "Systems & Backend" },
     items: [
       l("FastAPI", "FastAPI"),
-      l("Celery", "Celery"),
-      l("Redis", "Redis"),
-      l("PostgreSQL", "PostgreSQL"),
+      l("Fastify", "Fastify"),
+      l("WebSockets", "WebSockets"),
       l("Docker", "Docker"),
+      l("PostgreSQL / SQLite", "PostgreSQL / SQLite"),
+      l("Redis", "Redis"),
+      l("Celery", "Celery"),
       l("Ray", "Ray"),
-      l("XMPP / JADE", "XMPP / JADE"),
-      l("CI/CD", "CI/CD"),
+      l("C / C++", "C / C++"),
       l("Linux", "Linux"),
-      l("C/C++", "C/C++"),
     ],
     note: {
-      fr: "Backends asynchrones et orchestration distribuée, déployés derrière NGINX en production.",
-      en: "Asynchronous backends and distributed orchestration, deployed behind NGINX in production.",
+      fr: "Architectures concurrentes, microservices temps réel et conteneurisation déployée sous NGINX.",
+      en: "Concurrent architectures, real-time microservices, and containerized deployments behind NGINX.",
     },
   },
   {
     id: "data",
     code: "CL-04",
-    name: { fr: "Data", en: "Data" },
+    name: { fr: "Data & Machine Learning", en: "Data & Machine Learning" },
     items: [
       l("Python", "Python"),
       l("PyTorch", "PyTorch"),
@@ -77,13 +77,13 @@ export const skillClusters: SkillCluster[] = [
       l("pandas", "pandas"),
       l("SQL", "SQL"),
       l("MongoDB", "MongoDB"),
-      l("ETL", "ETL"),
+      l("Pipelines ETL", "ETL Pipelines"),
       l("Séries temporelles", "Time series"),
       l("CycleGAN / DDPM", "CycleGAN / DDPM"),
     ],
     note: {
-      fr: "Du pipeline ETL (−40% de traitements manuels) à la synthèse d'imagerie validée SSIM/FID.",
-      en: "From ETL pipelines (−40% manual processing) to imagery synthesis validated with SSIM/FID.",
+      fr: "Du traitement de données brutes (−40% de charge manuelle) à la synthèse d'images par modèles génératifs.",
+      en: "From raw data processing (−40% manual overhead) to image synthesis with generative models.",
     },
   },
 ];

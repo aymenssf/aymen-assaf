@@ -1,6 +1,16 @@
 import { l, type L } from "@/lib/i18n";
-import type { ProjectVisual } from "@/content/projects";
+import type { StaticImageData } from "next/image";
 import transcendenceDashboard from "@/public/projects/transcendence-dashboard.png";
+import transcendenceAiMatch from "@/public/projects/transcendence-ai-match.png";
+import transcendenceTournament from "@/public/projects/transcendence-tournament.png";
+
+export type ProjectMedia = {
+  id: string;
+  type: "gif" | "image";
+  src: StaticImageData | string;
+  label: L;
+  caption: L;
+};
 
 export type SchoolProject = {
   id: string;
@@ -8,41 +18,90 @@ export type SchoolProject = {
   title: L;
   points: L[];
   stack: string[];
-  /** `validated` → contour plein accent ; `wip` → contour pointillé. */
   status: "validated" | "wip";
-  /** Absent = « Repo privé ». Aucune URL n'est inventée. */
-  githubUrl?: string;
-  visual?: ProjectVisual;
+  githubUrl: string;
+  media: ProjectMedia[];
 };
 
-/** Projet 1337 / réseau 42 — badge système, plus léger qu'un dossier IA. */
 export const schoolProjects: SchoolProject[] = [
   {
     id: "transcendence",
-    code: "42 · CURSUS",
+    code: "1337 / 42",
     title: l(
-      "Transcendence — moteur backend temps réel",
-      "Transcendence — real-time backend engine",
+      "ft_transcendence — plateforme multijoueur temps réel & microservices",
+      "ft_transcendence — real-time multiplayer platform & microservices",
     ),
     points: [
       l(
-        "Architecture d'un backend à haute concurrence pour un jeu multijoueur (programmation asynchrone).",
-        "High-concurrency backend architecture for a multiplayer game (asynchronous programming).",
+        "Moteur de jeu Pong multijoueur sur WebSockets avec synchronisation d'état serveur, matchmaking 1v1 et tournois à 4 joueurs.",
+        "Server-authoritative WebSocket Pong game engine with real-time state synchronization, 1v1 matchmaking, and 4-player tournament brackets.",
       ),
       l(
-        "Implémentation de WebSockets pour le temps réel et de SQLite (Prisma) pour la persistance des états.",
-        "WebSockets for real-time exchange and SQLite (Prisma) for state persistence.",
+        "Microservice d'IA adverse (ai-service) avec 3 niveaux de difficulté calibrés sur le temps de réaction et l'anticipation de trajectoire.",
+        "Dedicated AI opponent microservice (ai-service) featuring 3 difficulty tiers based on reaction latency and trajectory prediction.",
+      ),
+      l(
+        "Architecture microservices Fastify avec bases SQLite isolées (Prisma), reverse proxy NGINX, authentification OAuth 42 et 2FA.",
+        "Fastify microservices architecture with isolated SQLite stores (Prisma), NGINX reverse proxy, 42 OAuth login, and 2FA.",
+      ),
+      l(
+        "Refonte complète de l'interface en React 18, Vite, TypeScript et Tailwind CSS avec chat en direct (Socket.IO) et statut de présence.",
+        "Full frontend rewrite in React 18, Vite, TypeScript, and Tailwind CSS with Socket.IO real-time messaging and presence management.",
       ),
     ],
-    stack: ["Fastify", "React", "Vite", "TypeScript", "Socket.IO", "Prisma", "Docker"],
+    stack: [
+      "Fastify",
+      "React 18",
+      "TypeScript",
+      "WebSockets",
+      "Socket.IO",
+      "Prisma",
+      "Docker",
+      "NGINX",
+    ],
     status: "validated",
     githubUrl: "https://github.com/aymenssf/ft_transcendence",
-    visual: {
-      src: transcendenceDashboard,
-      alt: l(
-        "Tableau de bord — statistiques et derniers matchs, ft_transcendence",
-        "Dashboard — stats and recent matches, ft_transcendence",
-      ),
-    },
+    media: [
+      {
+        id: "gameplay",
+        type: "gif",
+        src: "/projects/transcendence-gameplay.gif",
+        label: l("Gameplay (GIF)", "Gameplay (GIF)"),
+        caption: l(
+          "Partie multijoueur temps réel sur WebSockets (physique 60 fps)",
+          "Real-time multiplayer match over WebSockets (60 fps physics)",
+        ),
+      },
+      {
+        id: "dashboard",
+        type: "image",
+        src: transcendenceDashboard,
+        label: l("Dashboard (Photo)", "Dashboard (Photo)"),
+        caption: l(
+          "Tableau de bord : statistiques, historique des matchs et matchmaking",
+          "Player dashboard: stats, match history, and quick matchmaking",
+        ),
+      },
+      {
+        id: "ai-match",
+        type: "image",
+        src: transcendenceAiMatch,
+        label: l("Adversaire IA", "AI Opponent"),
+        caption: l(
+          "Match contre PongBot 3000 (difficulté dynamique)",
+          "Match vs. PongBot 3000 (dynamic difficulty engine)",
+        ),
+      },
+      {
+        id: "tournament",
+        type: "image",
+        src: transcendenceTournament,
+        label: l("Tournoi", "Tournament"),
+        caption: l(
+          "Arbre de tournoi à 4 joueurs avec demi-finales en direct",
+          "4-player tournament bracket with live semi-finals and final",
+        ),
+      },
+    ],
   },
 ];
